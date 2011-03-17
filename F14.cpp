@@ -1,8 +1,22 @@
+ /* =====================================================================================
+ *
+ *       Filename:  F14.cpp
+ *
+ *        Version:  1.0
+ *        Created:  02/24/2011 07:56:20 PM
+ *       Revision:  none
+ *
+ *       Compiler:  g++
+ *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
+ *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
+ *
+ * =====================================================================================
+ */
 #include "F14.h"
 #include <stdio.h>
 
 /**
- * Single-group Shifted and m-rotated Elliptic Function
+ * F14: D/m-group Shifted and m-rotated Elliptic Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -33,10 +47,8 @@ F14::F14():Benchmarks(){
 }
 
 F14::~F14(){
-	cout<<"F14 Class destroyed 0"<<endl;
 	delete[] Ovector;
 	delete[] Pvector;
-	cout<<"F14 Class destroyed 1"<<endl;
 	// delete 2D array
 	int i;
 	for(i=0;i<dimension/(nonSeparableGroupSize);i++){
@@ -44,7 +56,7 @@ F14::~F14(){
 	}
 	delete[] MultiRotMatrix1D;
 
-	cout<<"F14 Class destroyed 2"<<endl;
+	cout<<"F14 Class destroyed"<<endl;
 }
 
 double F14::compute(double*x){

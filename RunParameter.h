@@ -1,3 +1,19 @@
+ /* =====================================================================================
+ *
+ *       Filename:  RunParameter.h
+ *
+ *    Description:  Header file associtated with RunParameter.cpp
+ *        Version:  1.0
+ *        Created:  02/24/2011 07:56:20 PM
+ *       Revision:  none
+ *
+ *       Compiler:  g++
+ *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
+ *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
+ *
+ * =====================================================================================
+ */
+
 #ifndef _RUNPARAMETER_H
 #define _RUNPARAMETER_H
 
@@ -7,7 +23,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
-#include	<cmath>
+#include <cmath>
 
 using namespace std;
 
@@ -61,6 +77,5 @@ public:
 
 	// default destructor
 	~RunParameter();
-
 };
 #endif

@@ -1,3 +1,20 @@
+ /* =====================================================================================
+ *
+ *       Filename:  RunParameter.cpp
+ *
+ *    Description:  Read the parameters' configuration from file 'configure.ini' located 
+ *    				in the same directory
+ *        Version:  1.0
+ *        Created:  02/24/2011 07:56:20 PM
+ *       Revision:  none
+ *
+ *       Compiler:  g++
+ *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
+ *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
+ *
+ * =====================================================================================
+ */
+
 #include "RunParameter.h"
 
 // default constructor
@@ -8,6 +25,8 @@ RunParameter::RunParameter(){
 	ifstream configFile("configure.ini");
 	string tempStr;
 	char* strArray;
+
+	printf("Initialization for the vector\n");
 
 	if (configFile.is_open()){
 		while(configFile.good()){
@@ -32,8 +51,10 @@ RunParameter::RunParameter(){
 //						cout<<"confType = "<<confType.c_str()<<endl;
 						if (strcmp(confType.c_str(), "dimension")==0){
 							dimension = atoi (strArray);
+//							printf ( "Dimension = %d\n", dimension );
 						}else if (strcmp(confType.c_str(), "functionToRun")==0){
-							functionToRun.push_back(atoi (strArray));
+							functionToRun.push_back(atoi(strArray));
+//							printf ( "function to run = %d\n", atoi(strArray) );
 						}else if (strcmp(confType.c_str(), "numOfRun")==0){
 							numOfRun = atoi (strArray);
 						}else if (strcmp(confType.c_str(), "numberofPopulation")==0){
@@ -41,17 +62,17 @@ RunParameter::RunParameter(){
 						}else if (strcmp(confType.c_str(), "initialGroupSize")==0){
 							initialGroupSize = atoi (strArray);
 						}else if (strcmp(confType.c_str(), "fitnessCheckPoint")==0){
-//							cout<<"Check point = "<<atoi (strArray)<<endl;
 //							cout<<"Check point = "<<strtod(strArray)<<endl;
 							fitnessCheckPoint.push_back(atoi (strArray));
 //							fitnessCheckPoint.push_back(strtod(strArray));
 						}else if (strcmp(confType.c_str(), "samplingPoint")==0){
 							samplingPoint = atoi (strArray);
-							printf ( "The number of sampling points = %d\n", samplingPoint );
+//							printf ( "The number of sampling points = %d\n", samplingPoint );
 						}else if (strcmp(confType.c_str(), "initRandomSeed")==0){
 							initRandomSeed = atoi (strArray);
 						}else if (strcmp(confType.c_str(), "nonSeparableGroupSize")==0){
 							nonSeparableGroupSize = atoi (strArray);
+//							printf ( "Non-separable group size = %d\n", nonSeparableGroupSize );
 						}else if (strcmp(confType.c_str(), "lowerThreshold")==0){
 							lowerThreshold = atoi (strArray);
 						}else if (strcmp(confType.c_str(), "c")==0){
@@ -80,9 +101,10 @@ RunParameter::RunParameter(){
 	}else{
 		cout<<"Fail to open configFile.ini file"<<endl;
 		configFile.close();
+		exit(-1);
 	}
-	samplingInterval =round(fitnessCheckPoint.back()/samplingPoint); 
-	printf ( "Sampling Interval = %d\n", samplingInterval );
+//	samplingInterval =round(fitnessCheckPoint.back()/samplingPoint); 
+//	printf ( "Sampling Interval = %d\n", samplingInterval );
 }
 
 // default destructor

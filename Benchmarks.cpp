@@ -1,7 +1,24 @@
+ /* =====================================================================================
+ *
+ *       Filename:  Benchmarks.cpp
+ *
+ *    Description:  Base class for deriving F1~F20 
+ *
+ *        Version:  1.0
+ *        Created:  02/24/2011 07:56:20 PM
+ *       Revision:  none
+ *
+ *       Compiler:  g++
+ *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
+ *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
+ *
+ * =====================================================================================
+ */
+
 #include "Benchmarks.h"
 
 Benchmarks::Benchmarks(RunParameter* runParam){
-	cout<<"Benchmarks Class initialization"<<endl;
+//	cout<<"Benchmarks Class initialization"<<endl;
 	dimension = runParam->dimension;		
 	nonSeparableGroupSize = runParam->nonSeparableGroupSize;
 	MASK = ((L(1)) << (L(48))) - (L(1));
@@ -82,7 +99,7 @@ Benchmarks::~Benchmarks(){
 	delete[] anotherz;
 	delete[] anotherz1;
 	delete[] anotherz2;
-	cout<<"Benchmarks Class Destroyed"<<endl;
+//	cout<<"Benchmarks Class Destroyed"<<endl;
 }
 
 int Benchmarks::next(int bits) {

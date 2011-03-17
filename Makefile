@@ -1,10 +1,5 @@
 CC=g++
-SHARKLIB=/usr/local/lib/
-SHARKINC=/usr/local/include/
-LDLIBS=-lshark
-LDFLAGS=-L${SHARKLIB} -Wl,-rpath,${SHARKLIB}
-CXXFLAGS=-Wall -pedantic -I${SHARKINC} -O4
-#CXXFLAGS=-Wall -pedantic -I${SHARKINC} -ggdb -DDEBUG
+CXXFLAGS=-Wall -pedantic -ggdb
 
 OBJECTS=demo.o RunParameter.o Benchmarks.o \
 F1.o F2.o F3.o F4.o F5.o F6.o F7.o F8.o F9.o F10.o\
@@ -18,7 +13,6 @@ demo.o: demo.cpp Header.h RunParameter.h Benchmarks.h \
 F1.h F2.h F3.h F4.h F5.h F6.h F7.h F8.h F9.h F10.h\
 F11.h F12.h F13.h F14.h F15.h F16.h F17.h F18.h F19.h F20.h
 	$(CC) $(CXXFLAGS) -c demo.cpp 
-
 
 Benchmarks.o: RunParameter.h Benchmarks.h Benchmarks.cpp
 	$(CC) $(CXXFLAGS) -c Benchmarks.cpp

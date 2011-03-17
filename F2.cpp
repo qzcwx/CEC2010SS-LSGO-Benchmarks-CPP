@@ -1,7 +1,22 @@
+ /* =====================================================================================
+ *
+ *       Filename:  F2.cpp
+ *
+ *        Version:  1.0
+ *        Created:  02/24/2011 07:56:20 PM
+ *       Revision:  none
+ *
+ *       Compiler:  g++
+ *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
+ *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
+ *
+ * =====================================================================================
+ */
+
 #include "F2.h"
 
 /**
- * Shifted Rastrigin's Function
+ * F2: Shifted Rastrigin¡¯s Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,

@@ -1,56 +1,51 @@
+ /* =====================================================================================
+ *
+ *       Filename:  demo.cpp
+ *
+ *    Description:  This is a simple demo showing how to create benchmark instances and 
+ *    				to compute the fitness value. 
+ *        Version:  1.0
+ *        Created:  Thu Mar 17 21:38:44 CST 2011
+ *       Revision:  none
+ *       Compiler:  g++
+ *
+ *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
+ *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
+ *
+ * =====================================================================================
+ */
 #include "Header.h"
 
 int main(){
 
-//	RunParameter* runParam;
-//	unsigned funcIndex;
-	Benchmarks* fp=NULL;
-	
+	RunParameter* runParam = NULL;
+	Benchmarks* fp = NULL;
+	double* X = NULL;
 
-//	runParam = new RunParameter();
-//	vector<unsigned> funcToRun=runParam->functionToRun;
-
-	
-//	CCVIL* algo = new CCVIL(runParam);
-
-//	for (funcIndex = 0; funcIndex < runParam->functionToRun.size(); funcIndex++ ){
-//		fp = generateFuncObj(runParam, funcToRun[funcIndex]);
-//		algo->setObjFunc(fp);
-//		algo->run();
-//	}
-
-
-	/*  Test the population template */
-//	parents->setMinimize();
-//	offsprings->setMinimize();
-//
-//	for (i = 0; (unsigned int)i < parents.size(); ++i) {
-//		parents[ i ][ 0 ]->initialize(fp->getMinX(), fp->getMaxX());
-//	}
-//
-//	for (i = 0;(unsigned int)i < parents.size(); ++i){
-//		printf("pop %d = %1.20E\n", i, fp->compute(parents[ i ][ 0 ]));
-//		parents[ i ]->setFitness(fp->compute(parents[ i ][ 0 ]));
-//	}
-
+	runParam = new RunParameter();
+	vector<unsigned> funcToRun=runParam->functionToRun;
 
 	/*  Test the basic benchmark function */
-	double* X;
-	unsigned funcID = 1; // funcID ranges from 1 to 20 in this benchmark set
-	unsigned dim = 1000;
-	X = new double[dim];
-	for (unsigned i=0; i<dim; i++){
+	X = new double[runParam->dimension];
+	for (unsigned i=0; i<runParam->dimension; i++){
 		X[i]=0;
 	}
-	fp = generateFuncObj(funcID); 
-	printf("function F %d value = %1.20E\n", fp->getID(), fp->compute(X));
-	delete X;
 
-	if (fp){
-		delete fp;
+	unsigned funcIndex;
+	for (funcIndex = 0; funcIndex < runParam->functionToRun.size(); funcIndex++ ){
+		fp = generateFuncObj(runParam, funcToRun[funcIndex]);
+		printf("function F%d(X) value = %1.20E\n", fp->getID(), fp->compute(X));
+		delete(fp);
+		printf ( "\n" );
 	}
-//	delete algo;
-//	delete runParam;
+
+	if (X){
+		delete X;
+	}
+
+	if (runParam){
+		delete runParam;
+	}
 
 	return 0;
 }

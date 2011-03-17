@@ -1,3 +1,18 @@
+ /* =====================================================================================
+ *
+ *       Filename:  Header.h
+ *
+ *    Description:  This is header file required for running the benchmark set
+ *        Version:  1.0
+ *        Created:  02/24/2011 07:56:20 PM
+ *       Revision:  none
+ *       Compiler:  g++
+ *
+ *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
+ *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
+ *
+ * =====================================================================================
+ */
 #ifndef _HEADER_H
 #define _HEADER_H
 
@@ -28,7 +43,6 @@
 #include "F18.h"
 #include "F19.h"
 #include "F20.h"
-
 
 using namespace std;
 
