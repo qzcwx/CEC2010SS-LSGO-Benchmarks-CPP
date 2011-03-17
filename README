@@ -25,7 +25,7 @@ type in 'make' in the root directory of source code
 
 To run: 
 **********
-./main
+./demo.out
 
 To clean up:
 *********************
