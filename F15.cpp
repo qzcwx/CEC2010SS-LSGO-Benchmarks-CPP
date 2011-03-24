@@ -1,22 +1,8 @@
- /* =====================================================================================
- *
- *       Filename:  F15.cpp
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
 #include "F15.h"
 #include <stdio.h>
 
 /**
- * F15: D/m-group Shifted and m-rotated Rastrigin¡¯s Function
+ * Single-group Shifted and m-rotated Elliptic Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -28,7 +14,6 @@
  */
 
 F15::F15(RunParameter* runParam):Benchmarks(runParam){
-	cout<<"F15 Class initialization"<<endl;
 	dimension = runParam->dimension;
 	m_havenextGaussian=0;
 	Ovector = NULL;
@@ -38,7 +23,6 @@ F15::F15(RunParameter* runParam):Benchmarks(runParam){
 }
 
 F15::F15():Benchmarks(){
-	cout<<"F15 Class initialization"<<endl;
 	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -5;
@@ -55,8 +39,6 @@ F15::~F15(){
 		delete[] MultiRotMatrix1D[i];
 	}
 	delete[] MultiRotMatrix1D;
-
-	cout<<"F15 Class destroyed"<<endl;
 }
 
 double F15::compute(double*x){

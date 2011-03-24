@@ -1,22 +1,8 @@
- /* =====================================================================================
- *
- *       Filename:  F19.cpp
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
 #include "F19.h"
 #include <stdio.h>
 
 /**
- * F19: Shifted Schwefel¡¯s Problem 1.2
+ * Single-group Shifted and m-rotated Elliptic Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -28,7 +14,6 @@
  */
 
 F19::F19(RunParameter* runParam):Benchmarks(runParam){
-	cout<<"F19 Class initialization"<<endl;
 	dimension = runParam->dimension;
 	m_havenextGaussian=0;
 	Ovector = NULL;
@@ -38,7 +23,6 @@ F19::F19(RunParameter* runParam):Benchmarks(runParam){
 }
 
 F19::F19():Benchmarks(){
-	cout<<"F19 Class initialization"<<endl;
 	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -100;
@@ -48,7 +32,6 @@ F19::F19():Benchmarks(){
 
 F19::~F19(){
 	delete[] Ovector;
-	cout<<"F19 Class destroyed"<<endl;
 }
 
 double F19::compute(double*x){

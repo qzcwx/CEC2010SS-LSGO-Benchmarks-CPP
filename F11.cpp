@@ -1,22 +1,8 @@
-	 /* =====================================================================================
- *
- *       Filename:  F11.cpp
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
 #include "F11.h"
 #include <stdio.h>
 
 /**
- * F11: D/2m-group Shifted and m-rotated Ackley¡¯s Function
+ * Single-group Shifted and m-rotated Elliptic Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -28,7 +14,6 @@
  */
 
 F11::F11(RunParameter* runParam):Benchmarks(runParam){
-	cout<<"F11 Class initialization"<<endl;
 	dimension = runParam->dimension;
 	m_havenextGaussian=0;
 	Ovector = NULL;
@@ -38,7 +23,6 @@ F11::F11(RunParameter* runParam):Benchmarks(runParam){
 }
 
 F11::F11():Benchmarks(){
-	cout<<"F11 Class initialization"<<endl;
 	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -32;
@@ -55,7 +39,6 @@ F11::~F11(){
 		delete[] MultiRotMatrix1D[i];
 	}
 	delete[] MultiRotMatrix1D;
-	cout<<"F11 Class destroyed"<<endl;
 }
 
 double F11::compute(double*x){

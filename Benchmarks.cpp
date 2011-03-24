@@ -1,24 +1,6 @@
- /* =====================================================================================
- *
- *       Filename:  Benchmarks.cpp
- *
- *    Description:  Base class for deriving F1~F20 
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
-
 #include "Benchmarks.h"
 
 Benchmarks::Benchmarks(RunParameter* runParam){
-//	cout<<"Benchmarks Class initialization"<<endl;
 	dimension = runParam->dimension;		
 	nonSeparableGroupSize = runParam->nonSeparableGroupSize;
 	MASK = ((L(1)) << (L(48))) - (L(1));
@@ -39,7 +21,7 @@ Benchmarks::Benchmarks(RunParameter* runParam){
 
 	functionInitRandomSeed = L(runParam->initRandomSeed);
 	m_seed= functionInitRandomSeed;
-	M  = 0x5DEECE66D;
+	M = 0x5DEECE66D;
 	A  = 0xB;
 
 	minX = -100;
@@ -47,7 +29,6 @@ Benchmarks::Benchmarks(RunParameter* runParam){
 }
 
 Benchmarks::Benchmarks(){
-	cout<<"Benchmarks default Class initialization"<<endl;
 	dimension = 1000;		
 	nonSeparableGroupSize = 50;
 	MASK = ((L(1)) << (L(48))) - (L(1));
@@ -78,7 +59,6 @@ Benchmarks::Benchmarks(){
 void Benchmarks::setMinX(int inVal){
 	minX = inVal;	
 }
-
 void Benchmarks::setMaxX(int inVal){
 	maxX = inVal;
 }
@@ -99,7 +79,6 @@ Benchmarks::~Benchmarks(){
 	delete[] anotherz;
 	delete[] anotherz1;
 	delete[] anotherz2;
-//	cout<<"Benchmarks Class Destroyed"<<endl;
 }
 
 int Benchmarks::next(int bits) {
@@ -310,7 +289,6 @@ double** Benchmarks::createMultiRotateMatrix1D(int dim, int num){
 }
 
 double* Benchmarks::lookupprepare(int dim) {
-
 	double pownum;
 	int    i;
 	double* lookup;
@@ -333,13 +311,15 @@ double* Benchmarks::lookupprepare(int dim) {
 double Benchmarks::elliptic(double*x,int dim) {
 	double result = 0.0;
 	int    i;
-	double * lookup = lookupprepare(dim);
 
 	for(i = dim - 1; i >= 0; i--) {
-		result += lookup[i] * x[i] * x[i];
+		if (dim == nonSeparableGroupSize){
+			result += lookup2[i] * x[i] * x[i];
+		}else{
+			result += lookup[i] * x[i] * x[i];
+		}
 	}
 
-	delete[] lookup;
 	return(result);
 }
 
@@ -351,14 +331,12 @@ unsigned Benchmarks::getID(){
 double Benchmarks::elliptic(double*x, int dim, int k) {
 	double result = 0.0;
 	int    i;
-	double * lookup = lookupprepare(dim/2);
 
 	for(i=dim/k-1;i>=0;i--)
 	{
-		result+=lookup[i]*x[Pvector[dim/k+i]]*x[Pvector[dim/k+i]];
+		result+=lookup2[i]*x[Pvector[dim/k+i]]*x[Pvector[dim/k+i]];
 	}
 
-	delete[] lookup;
 	return(result);
 }
 
@@ -436,21 +414,19 @@ double* Benchmarks::multiply(double*vector, double*matrix,int dim){
 	return(result);
 }
 
-// Rotated Elliptic Function for F1 ~ F8
+// Rotated Elliptic Function for F1 & F4
 double Benchmarks::rot_elliptic(double*x,int dim){
 	double result = 0.0;
 	double *z = multiply(x,RotMatrix,dim);
-	double *lookupTable = lookupprepare(dim);
 
 	result = elliptic(z,dim);
 
 	delete[] z;
-	delete[] lookupTable;
 	return(result);
 }
 
-// Rotated Elliptic Function for F9 ~
-double Benchmarks::rot_elliptic(double*x,int dim, int k, double *lookup){
+// Rotated Elliptic Function for F9 & F14
+double Benchmarks::rot_elliptic(double*x,int dim, int k){
 	double result=0.0;
 
 	int i,j;

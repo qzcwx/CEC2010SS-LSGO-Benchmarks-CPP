@@ -1,21 +1,7 @@
- /* =====================================================================================
- *
- *       Filename:  F3.cpp
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
 #include "F3.h"
 
 /**
- * F3: Shifted Ackley¡¯s Function
+ * Shifted Ackley's Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -27,7 +13,6 @@
  */
 
 F3::F3(RunParameter* runParam):Benchmarks(runParam){
-	cout<<"F3 Class initialization"<<endl;
 	dimension = runParam->dimension;
 	m_havenextGaussian=0;
 	Ovector = NULL;
@@ -37,7 +22,6 @@ F3::F3(RunParameter* runParam):Benchmarks(runParam){
 }
 
 F3::F3():Benchmarks(){
-	cout<<"F3 Class initialization"<<endl;
 	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -32;
@@ -47,7 +31,6 @@ F3::F3():Benchmarks(){
 
 F3::~F3(){
  	delete[] Ovector;
-	cout<<"F3 Class destroyed"<<endl;
 }
 
 

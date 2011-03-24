@@ -1,22 +1,8 @@
- /* =====================================================================================
- *
- *       Filename:  F17.cpp
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
 #include "F17.h"
 #include <stdio.h>
 
 /**
- * F17: D/m-group Shifted m-dimensional Schwefel¡¯s Problem 1.2
+ * Single-group Shifted and m-rotated Elliptic Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -28,7 +14,6 @@
  */
 
 F17::F17(RunParameter* runParam):Benchmarks(runParam){
-	cout<<"F17 Class initialization"<<endl;
 	dimension = runParam->dimension;
 	m_havenextGaussian=0;
 	Ovector = NULL;
@@ -38,7 +23,6 @@ F17::F17(RunParameter* runParam):Benchmarks(runParam){
 }
 
 F17::F17():Benchmarks(){
-	cout<<"F17 Class initialization"<<endl;
 	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -100;
@@ -49,7 +33,6 @@ F17::F17():Benchmarks(){
 F17::~F17(){
 	delete[] Ovector;
 	delete[] Pvector;
-	cout<<"F17 Class destroyed"<<endl;
 }
 
 double F17::compute(double*x){

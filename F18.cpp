@@ -1,22 +1,8 @@
- /* =====================================================================================
- *
- *       Filename:  F18.cpp
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
 #include "F18.h"
 #include <stdio.h>
 
 /**
- * F18: D/m-group Shifted m-dimensional Rosenbrock¡¯s Function
+ * Single-group Shifted and m-rotated Elliptic Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -28,7 +14,6 @@
  */
 
 F18::F18(RunParameter* runParam):Benchmarks(runParam){
-	cout<<"F18 Class initialization"<<endl;
 	dimension = runParam->dimension;
 	m_havenextGaussian=0;
 	Ovector = NULL;
@@ -38,7 +23,6 @@ F18::F18(RunParameter* runParam):Benchmarks(runParam){
 }
 
 F18::F18():Benchmarks(){
-	cout<<"F18 Class initialization"<<endl;
 	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -100;
@@ -49,7 +33,6 @@ F18::F18():Benchmarks(){
 F18::~F18(){
 	delete[] Ovector;
 	delete[] Pvector;
-	cout<<"F18 Class destroyed"<<endl;
 }
 
 double F18::compute(double*x){

@@ -1,20 +1,3 @@
- /* =====================================================================================
- *
- *       Filename:  Benchmarks.h
- *
- *    Description:  Header file associtated with RunParameter.cpp
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
-
 #ifndef _BENCHMARKS_H
 #define _BENCHMARKS_H
 
@@ -51,7 +34,7 @@ protected:
 	double ackley(double*x,int dim);
 	double ackley(double*x,int dim, int k);
 	double rot_elliptic(double*x,int dim);
-	double rot_elliptic(double*x,int dim, int k, double *lookup);
+	double rot_elliptic(double*x,int dim, int k);
 	double rot_rastrigin(double*x,int dim);
 	double rot_rastrigin(double *x,int dim,int k);
 	double rot_ackley(double*x,int dim);
@@ -77,6 +60,8 @@ protected:
 	int*    Pvector;
 	double* RotMatrix;
 	double** MultiRotMatrix1D;
+	double *lookup;
+	double *lookup2;
 
 	double* anotherz;
 	double* anotherz1;
@@ -88,6 +73,7 @@ protected:
 	int dimension;
 	int nonSeparableGroupSize;
 	int64_t functionInitRandomSeed;
+
 public:
 	Benchmarks(RunParameter* runParam);
 	Benchmarks();

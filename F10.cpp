@@ -1,22 +1,8 @@
- /* =====================================================================================
- *
- *       Filename:  F10.cpp
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
 #include "F10.h"
 #include <stdio.h>
 
 /**
- * F10: D/2m-group Shifted and m-rotated Rastrigin¡¯s Function
+ * Single-group Shifted and m-rotated Elliptic Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -28,7 +14,6 @@
  */
 
 F10::F10(RunParameter* runParam):Benchmarks(runParam){
-	cout<<"F10 Class initialization"<<endl;
 	dimension = runParam->dimension;
 	m_havenextGaussian=0;
 	Ovector = NULL;
@@ -38,7 +23,6 @@ F10::F10(RunParameter* runParam):Benchmarks(runParam){
 }
 
 F10::F10():Benchmarks(){
-	cout<<"F10 Class initialization"<<endl;
 	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -5;
@@ -49,7 +33,6 @@ F10::F10():Benchmarks(){
 F10::~F10(){
 	delete[] Ovector;
 	delete[] Pvector;
-	cout<<"F10 Class destroyed"<<endl;
 	// delete 2D array
 	int i;
 	for(i=0;i<dimension/(2*nonSeparableGroupSize);i++){

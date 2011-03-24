@@ -1,50 +1,54 @@
- /* =====================================================================================
- *
- *       Filename:  demo.cpp
- *
- *    Description:  This is a simple demo showing how to create benchmark instances and 
- *    				to compute the fitness value. 
- *        Version:  1.0
- *        Created:  Thu Mar 17 21:38:44 CST 2011
- *       Revision:  none
- *       Compiler:  g++
- *
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
 #include "Header.h"
 
+#include <sys/time.h>
+#include <cstdio>
+#include <unistd.h>
+
 int main(){
-
-	RunParameter* runParam = NULL;
-	Benchmarks* fp = NULL;
-	double* X = NULL;
-
-	runParam = new RunParameter();
-	vector<unsigned> funcToRun=runParam->functionToRun;
-
 	/*  Test the basic benchmark function */
-	X = new double[runParam->dimension];
-	for (unsigned i=0; i<runParam->dimension; i++){
+	double* X;
+	Benchmarks* fp=NULL;
+	unsigned dim = 1000;
+	unsigned funToRun[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+	unsigned funNum = 20;
+	unsigned timesOfRun = 10000;
+
+	vector<double> runTimeVec;
+	struct timeval start, end;
+	long seconds, useconds;    
+	double mtime;
+
+	X = new double[dim];
+	for (unsigned i=0; i<dim; i++){
 		X[i]=0;
 	}
 
-	unsigned funcIndex;
-	for (funcIndex = 0; funcIndex < runParam->functionToRun.size(); funcIndex++ ){
-		fp = generateFuncObj(runParam, funcToRun[funcIndex]);
-		printf("function F%d(X) value = %1.20E\n", fp->getID(), fp->compute(X));
-		delete(fp);
-		printf ( "\n" );
+	for (unsigned i=0; i<funNum; i++){
+		fp = generateFuncObj(funToRun[i]); 
+
+		printf("F %d value = %1.20E\n", fp->getID(), fp->compute(X));
+
+		gettimeofday(&start, NULL);
+		for (unsigned j=0; j < timesOfRun; j++){
+			fp->compute(X);
+		}
+		gettimeofday(&end, NULL);
+
+		seconds  = end.tv_sec  - start.tv_sec;
+		useconds = end.tv_usec - start.tv_usec;
+
+		mtime = (((seconds) * 1000 + useconds/1000.0) + 0.5)/1000;
+
+		runTimeVec.push_back(mtime);
+		printf ( "F %d, Running Time = %f s\n\n", fp->getID(), mtime);
+
+		delete fp;
 	}
 
-	if (X){
-		delete X;
-	}
+	delete X;
 
-	if (runParam){
-		delete runParam;
+	for (unsigned i=0; i<runTimeVec.size(); i++){
+		printf ( "%f\n", runTimeVec[i] );
 	}
 
 	return 0;

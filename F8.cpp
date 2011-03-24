@@ -1,22 +1,8 @@
- /* =====================================================================================
- *
- *       Filename:  F8.cpp
- *
- *        Version:  1.0
- *        Created:  02/24/2011 07:56:20 PM
- *       Revision:  none
- *
- *       Compiler:  g++
- *         Author:  Wenxiang Chen (http://cs-chen.net), chenwx.ustc@gmail.com
- *        Company:  Nature Inspired Computation and Application Laboratory (NICAL), USTC
- *
- * =====================================================================================
- */
 #include "F8.h"
 #include <stdio.h>
 
 /**
- * F8: Single-group Shifted m-dimensional Rosenbrock¡¯s Function
+ * Single-group Shifted and m-rotated Elliptic Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -28,7 +14,6 @@
  */
 
 F8::F8(RunParameter* runParam):Benchmarks(runParam){
-	cout<<"F8 Class initialization"<<endl;
 	dimension = runParam->dimension;
 	m_havenextGaussian=0;
 	Ovector = NULL;
@@ -38,7 +23,6 @@ F8::F8(RunParameter* runParam):Benchmarks(runParam){
 }
 
 F8::F8():Benchmarks(){
-	cout<<"F8 Class initialization"<<endl;
 	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -100;
@@ -49,7 +33,6 @@ F8::F8():Benchmarks(){
 F8::~F8(){
 	delete[] Ovector;
 	delete[] Pvector;
-	cout<<"F8 Class destroyed"<<endl;
 }
 
 double F8::compute(double* x){
