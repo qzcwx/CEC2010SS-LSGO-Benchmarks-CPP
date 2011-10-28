@@ -1,30 +1,25 @@
 CC=g++
-SHARKLIB=/usr/local/lib/
-SHARKINC=/usr/local/include/
 LDLIBS=-lshark
-LDFLAGS=-L${SHARKLIB} -Wl,-rpath,${SHARKLIB}
-CXXFLAGS=-Wall -pedantic -I${SHARKINC} -O4
-#CXXFLAGS=-Wall -pedantic -I${SHARKINC} -ggdb -DDEBUG
+LDFLAGS= -Wl,-rpath
+CXXFLAGS=-Wall -pedantic  -O4
+#CXXFLAGS=-Wall -pedantic  -ggdb -DDEBUG
 
-OBJECTS=demo.o RunParameter.o Benchmarks.o \
+OBJECTS=demo.o  Benchmarks.o \
 F1.o F2.o F3.o F4.o F5.o F6.o F7.o F8.o F9.o F10.o\
 F11.o F12.o F13.o F14.o F15.o F16.o F17.o F18.o F19.o F20.o 
-#OBJECTS = demo.o RunParameter.o F2.o Benchmarks.o
 
 demo: $(OBJECTS)
 	$(CC) $(CXXFLAGS) -o demo.out $(OBJECTS) $(LDLIBS)
 
-demo.o: demo.cpp Header.h RunParameter.h Benchmarks.h \
+demo.o: demo.cpp Header.h  Benchmarks.h \
 F1.h F2.h F3.h F4.h F5.h F6.h F7.h F8.h F9.h F10.h\
 F11.h F12.h F13.h F14.h F15.h F16.h F17.h F18.h F19.h F20.h
 	$(CC) $(CXXFLAGS) -c demo.cpp 
 
 
-Benchmarks.o: RunParameter.h Benchmarks.h Benchmarks.cpp
+Benchmarks.o:  Benchmarks.h Benchmarks.cpp
 	$(CC) $(CXXFLAGS) -c Benchmarks.cpp
 
-RunParameter.o: RunParameter.h RunParameter.cpp
-	$(CC) $(CXXFLAGS) -c RunParameter.cpp
 
 F1.o: F1.h Benchmarks.h F1.cpp
 	$(CC) $(CXXFLAGS) -c F1.cpp

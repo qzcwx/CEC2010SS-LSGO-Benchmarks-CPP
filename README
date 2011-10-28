@@ -7,7 +7,6 @@ Note:
 *****
 *If you are to use any part of this code, please cite the following publications:
 Tang, K., Li, X., Suganthan, P.N., Yang, Z., Weise, T.: Benchmark functions for the CEC’2010 special session and competition on large scale global optimization. TR, NICAL, USTC, Hefei, Anhui, China (2009) http://nical.ustc.edu.cn/cec10ss.php.
-*This C++ implementation here differs from both the JAVA & MATLAB codes given in the foregoing link. The C++ version uniformly randomly generate multiple (instead of a single one) rotation matrices in all those functions where several rotation matrices are required.
 
 Requirements:
 *************
@@ -38,7 +37,7 @@ Please edit 'configure.ini' to configure the parameter of running benchmarks
 
 Contact:
 ********
-Wenxiang Chen @ NICAL, USTC
-Please contact me at <chenwx.ustc@gmail.com> for any enquiries.
+Wenxiang Chen @ Computer Science Department, Colorado State University
+Please contact me at <chenwx@cs.colostate.edu> for any enquiries.
 
-Last Updated: 05:46 PM Thursday, March 24 2011
+Last Updated: Thu Oct 27 23:43:35 MDT 2011

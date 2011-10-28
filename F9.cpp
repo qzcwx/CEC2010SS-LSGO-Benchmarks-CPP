@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * Single-group Shifted and m-rotated Elliptic Function
+ * D/2m-group Shifted and m-rotated Elliptic Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -12,17 +12,6 @@
  * Science and Technology, University of Science and Technology of China,
  * Hefei, Anhui, China.
  */
-
-F9::F9(RunParameter* runParam):Benchmarks(runParam){
-	dimension = runParam->dimension;
-	m_havenextGaussian=0;
-	Ovector = NULL;
-	minX = -100;
-	maxX = 100;
-	ID = 9;
-	lookup = lookupprepare(nonSeparableGroupSize);
-	lookup2 = lookupprepare(dimension/2);
-}
 
 F9::F9():Benchmarks(){
 	m_havenextGaussian=0;
@@ -39,12 +28,7 @@ F9::~F9(){
 	delete[] Pvector;
 	delete[] lookup;
 	delete[] lookup2;
-	// delete 2D array
-	int i;
-	for(i=0;i<dimension/(2*nonSeparableGroupSize);i++){
-		delete[] MultiRotMatrix1D[i];
-	}
-	delete[] MultiRotMatrix1D;
+	delete[] RotMatrix;
 }
 
 double F9::compute(double*x){
@@ -54,7 +38,7 @@ double F9::compute(double*x){
 	if(Ovector==NULL){
 		Ovector=createShiftVector(dimension,minX,maxX);
 		Pvector=createPermVector(dimension);
-		MultiRotMatrix1D=createMultiRotateMatrix1D(nonSeparableGroupSize,dimension/(2*nonSeparableGroupSize));
+		RotMatrix=createRotMatrix1D(nonSeparableGroupSize);
 
 		/* 
 		 * print the multi rotated matrix 
@@ -97,7 +81,7 @@ double F9::compute(vector<double> x){
 	if(Ovector==NULL){
 		Ovector=createShiftVector(dimension,minX,maxX);
 		Pvector=createPermVector(dimension);
-		MultiRotMatrix1D=createMultiRotateMatrix1D(nonSeparableGroupSize,dimension/(2*nonSeparableGroupSize));
+		RotMatrix=createRotMatrix1D(nonSeparableGroupSize);
 
 		/* 
 		 * print the multi rotated matrix 

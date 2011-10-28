@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * Single-group Shifted and m-rotated Elliptic Function
+ * D/2m-group Shifted m-dimensional Rosenbrock¡¯s Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -12,15 +12,6 @@
  * Science and Technology, University of Science and Technology of China,
  * Hefei, Anhui, China.
  */
-
-F13::F13(RunParameter* runParam):Benchmarks(runParam){
-	dimension = runParam->dimension;
-	m_havenextGaussian=0;
-	Ovector = NULL;
-	minX = -100;
-	maxX = 100;
-	ID = 13;
-}
 
 F13::F13():Benchmarks(){
 	m_havenextGaussian=0;

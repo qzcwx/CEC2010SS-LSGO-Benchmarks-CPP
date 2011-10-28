@@ -6,7 +6,6 @@
 class F20:public Benchmarks{
 protected:
 public:
-	F20(RunParameter* runParam);
 	F20();
 	double compute(double* x) ;
 	double compute(vector<double> x) ;

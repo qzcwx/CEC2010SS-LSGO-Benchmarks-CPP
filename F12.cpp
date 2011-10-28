@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * Single-group Shifted and m-rotated Elliptic Function
+ * Single-group Shifted and m-rotated Schwefel’s Problem 1.2
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -13,14 +13,6 @@
  * Hefei, Anhui, China.
  */
 
-F12::F12(RunParameter* runParam):Benchmarks(runParam){
-	dimension = runParam->dimension;
-	m_havenextGaussian=0;
-	Ovector = NULL;
-	minX = -100;
-	maxX = 100;
-	ID = 12;
-}
 
 F12::F12():Benchmarks(){
 	m_havenextGaussian=0;

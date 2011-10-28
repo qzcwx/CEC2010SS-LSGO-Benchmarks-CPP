@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * Single-group Shifted and m-rotated Elliptic Function
+ * Single-group Shifted and m-rotated Ackley¡¯s Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -13,14 +13,6 @@
  * Hefei, Anhui, China.
  */
 
-F6::F6(RunParameter* runParam):Benchmarks(runParam){
-	dimension = runParam->dimension;
-	m_havenextGaussian=0;
-	Ovector = NULL;
-	minX = -32;
-	maxX = 32;
-	ID = 6;
-}
 
 F6::F6():Benchmarks(){
 	m_havenextGaussian=0;

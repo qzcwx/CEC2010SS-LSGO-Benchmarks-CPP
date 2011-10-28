@@ -6,7 +6,6 @@
 class F9:public Benchmarks{
 protected:
 public:
-	F9(RunParameter* runParam);
 	F9();
 	double compute(double* x) ;
 	double compute(vector<double> x) ;

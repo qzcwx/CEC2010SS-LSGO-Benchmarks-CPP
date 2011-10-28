@@ -5,8 +5,8 @@
 
 class F18:public Benchmarks{
 protected:
+	void generateInterArray ( );
 public:
-	F18(RunParameter* runParam);
 	F18();
 	double compute(double* x) ;
 	double compute(vector<double> x) ;

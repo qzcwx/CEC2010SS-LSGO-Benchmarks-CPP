@@ -1,33 +1,5 @@
 #include "Benchmarks.h"
 
-Benchmarks::Benchmarks(RunParameter* runParam){
-	dimension = runParam->dimension;		
-	nonSeparableGroupSize = runParam->nonSeparableGroupSize;
-	MASK = ((L(1)) << (L(48))) - (L(1));
-	m_havenextGaussian = false;
-
-	if (dimension<nonSeparableGroupSize){
-		cerr<<"ERROR: In configuration file, dimension is smaller than the non-separable part"<<endl;
-		exit(-1);
-	}
-
-	// allocate the memory
-	anotherz = new double[dimension];
-	anotherz1= new double[nonSeparableGroupSize];
-	anotherz2= new double[dimension - nonSeparableGroupSize];
-
-	// Runtime Parameters setting
-	setOvectorToZero = false;
-
-	functionInitRandomSeed = L(runParam->initRandomSeed);
-	m_seed= functionInitRandomSeed;
-	M = 0x5DEECE66D;
-	A  = 0xB;
-
-	minX = -100;
-	maxX = 100;
-}
-
 Benchmarks::Benchmarks(){
 	dimension = 1000;		
 	nonSeparableGroupSize = 50;
@@ -79,6 +51,7 @@ Benchmarks::~Benchmarks(){
 	delete[] anotherz;
 	delete[] anotherz1;
 	delete[] anotherz2;
+
 }
 
 int Benchmarks::next(int bits) {
@@ -435,7 +408,7 @@ double Benchmarks::rot_elliptic(double*x,int dim, int k){
 		anotherz1[i]=0;
 		for(j=dim-1;j>=0;j--)
 		{
-			anotherz1[i]+=x[Pvector[(k-1)*dim+j]]*MultiRotMatrix1D[k-1][dim*j+i];
+			anotherz1[i]+=x[Pvector[(k-1)*dim+j]]*RotMatrix[dim*j+i];
 		}
 	}
 	for(i=dim-1;i>=0;i--)
@@ -466,7 +439,7 @@ double Benchmarks::rot_rastrigin(double *x,int dim,int k)
 		anotherz1[i]=0;
 		for(j=dim-1;j>=0;j--)
 		{
-			anotherz1[i]+=x[Pvector[(k-1)*dim+j]]*MultiRotMatrix1D[k-1][dim*j+i];
+			anotherz1[i]+=x[Pvector[(k-1)*dim+j]]*RotMatrix[dim*j+i];
 		}
 	}
 
@@ -499,7 +472,7 @@ double Benchmarks::rot_ackley(double *x,int dim,int k)
 		anotherz1[i]=0;
 		for(j=dim-1;j>=0;j--)
 		{
-			anotherz1[i]+=x[Pvector[(k-1)*dim+j]]*MultiRotMatrix1D[k-1][dim*j+i];
+			anotherz1[i]+=x[Pvector[(k-1)*dim+j]]*RotMatrix[dim*j+i];
 		}
 	}
 	for(i=dim-1;i>=0;i--)
@@ -606,3 +579,88 @@ int Benchmarks::getMinX(){
 int Benchmarks::getMaxX(){
 	return maxX;
 }
+
+
+/* 
+ * ===  FUNCTION  ======================================================================
+ *         Name:  getInterArray
+ *  Description:  get the variable interaction information in the representation of one
+ *  				dimensional array
+ * =====================================================================================
+ */
+	vector<bool>
+Benchmarks::getInterArray (  )
+{
+	return interArray;
+}		/* -----  end of function getInterArray  ----- */
+
+
+/* 
+ * ===  FUNCTION  ======================================================================
+ *         Name:  convertMatrixToArrayIndex
+ *  Description:  
+ * =====================================================================================
+ */
+	unsigned	
+Benchmarks::convertMatrixToArrayIndex ( unsigned i, unsigned j )
+{
+	return ( i* (2*dimension-i-3) / 2 + j - 1);
+}		/* -----  end of function convertMatrixToArrayIndex  ----- */
+
+
+/* 
+ * ===  FUNCTION  ======================================================================
+ *         Name:  createIndexMapping
+ *  Description:  
+ * =====================================================================================
+ */
+	void
+Benchmarks::createIndexMapping (  )
+{
+	unsigned N = dimension, indexCounter = 0;
+
+	indexMap = new struct IndexMap[arrSize];
+
+	for (unsigned i=0; i<N; i++){
+		for (unsigned j=i+1; j<N; j++){
+			indexMap[indexCounter].arrIndex1 = i;
+			indexMap[indexCounter].arrIndex2 = j;
+			indexCounter++;
+		}
+	}
+}		/* -----  end of function CCVIL::createIndexMapping  ----- */
+
+
+/* 
+ * ===  FUNCTION  ======================================================================
+ *         Name:  ArrToMat
+ *  Description:  
+ * =====================================================================================
+ */
+	void
+Benchmarks::ArrToMat ( unsigned I1, unsigned I2, unsigned &matIndex )
+{
+	for (unsigned i=0; i<arrSize; i++){
+		if (indexMap[i].arrIndex1 == I1 && indexMap[i].arrIndex2 == I2){
+			matIndex = i;
+			return ;
+		}
+	}
+	
+	printf ( "Cannot locate the matrix index from given array indices\n" );
+	exit(EXIT_FAILURE);
+}		/* -----  end of function Benchmarks::ArrToMat  ----- */
+
+
+/* 
+ * ===  FUNCTION  ======================================================================
+ *         Name:  Benchmarks::MatToArr
+ *  Description:  
+ * =====================================================================================
+ */
+	void
+Benchmarks::MatToArr ( unsigned &I1, unsigned &I2, unsigned matIndex )
+{
+	I1 = indexMap[matIndex].arrIndex1;
+	I2 = indexMap[matIndex].arrIndex2;
+}		/* -----  end of function Benchmarks::MatToArr  ----- */

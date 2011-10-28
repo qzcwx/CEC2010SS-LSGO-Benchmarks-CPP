@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * Single-group Shifted and m-rotated Elliptic Function
+ * Single-group Shifted and m-rotated Rastrigin’s Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -12,15 +12,6 @@
  * Science and Technology, University of Science and Technology of China,
  * Hefei, Anhui, China.
  */
-
-F10::F10(RunParameter* runParam):Benchmarks(runParam){
-	dimension = runParam->dimension;
-	m_havenextGaussian=0;
-	Ovector = NULL;
-	minX = -5;
-	maxX = 5;
-	ID = 10;
-}
 
 F10::F10():Benchmarks(){
 	m_havenextGaussian=0;
@@ -33,12 +24,7 @@ F10::F10():Benchmarks(){
 F10::~F10(){
 	delete[] Ovector;
 	delete[] Pvector;
-	// delete 2D array
-	int i;
-	for(i=0;i<dimension/(2*nonSeparableGroupSize);i++){
-		delete[] MultiRotMatrix1D[i];
-	}
-	delete[] MultiRotMatrix1D;
+	delete[] RotMatrix;
 }
 
 double F10::compute(double*x){
@@ -49,7 +35,7 @@ double F10::compute(double*x){
 	{
 		Ovector=createShiftVector(dimension,minX,maxX);
 		Pvector=createPermVector(dimension);
-		MultiRotMatrix1D=createMultiRotateMatrix1D(nonSeparableGroupSize,dimension/(2*nonSeparableGroupSize));
+		RotMatrix=createRotMatrix1D(nonSeparableGroupSize);
 	}
 	for(i=0;i<dimension;i++)
 	{
@@ -74,7 +60,7 @@ double F10::compute(vector<double> x){
 	{
 		Ovector=createShiftVector(dimension,minX,maxX);
 		Pvector=createPermVector(dimension);
-		MultiRotMatrix1D=createMultiRotateMatrix1D(nonSeparableGroupSize,dimension/(2*nonSeparableGroupSize));
+		RotMatrix=createRotMatrix1D(nonSeparableGroupSize);
 	}
 	for(i=0;i<dimension;i++)
 	{

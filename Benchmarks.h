@@ -1,14 +1,25 @@
 #ifndef _BENCHMARKS_H
 #define _BENCHMARKS_H
 
+#include <vector>
+#include <fstream>
+#include <string>
+#include <cstring>
 #include <cstdlib>
-#include <cmath>
-#include "RunParameter.h"
+#include <iostream>
+#include	<cmath>
+#include	<ctime>
+using namespace std;
 
 #define PI (3.141592653589793238462643383279)
 #define E  (2.718281828459045235360287471352)
 #define L(i) ((int64_t)i)
 #define D(i) ((double)i)
+
+struct IndexMap{
+	unsigned arrIndex1;
+	unsigned arrIndex2;
+};
 
 class Benchmarks{
 protected:
@@ -45,8 +56,8 @@ protected:
 	double sphere(double*x,int dim, int k);
 	double rosenbrock(double*x,int dim);
 	double rosenbrock(double*x,int dim, int k);
-
-
+	unsigned convertMatrixToArrayIndex ( unsigned i, unsigned j );
+	void createIndexMapping (  ); 
 
 	int64_t M;
 	int64_t A;
@@ -67,15 +78,18 @@ protected:
 	double* anotherz1;
 	double* anotherz2;
 
+	vector<bool> interArray;
+
 	// running time setting for benchmarks
 	int minX;
 	int maxX;
 	int dimension;
 	int nonSeparableGroupSize;
 	int64_t functionInitRandomSeed;
+	struct IndexMap *indexMap;
+	unsigned arrSize;
 
 public:
-	Benchmarks(RunParameter* runParam);
 	Benchmarks();
 	virtual ~Benchmarks();
 	virtual double compute(double* x){return 0;};
@@ -90,6 +104,9 @@ public:
 	void setSeed(int64_t);
 	void setDimension(int);
 	void setNonSeparableGroupSize(int);
+	vector<bool> getInterArray (  );
+	void ArrToMat ( unsigned I1, unsigned I2, unsigned &matIndex );
+	void MatToArr ( unsigned &I1, unsigned &I2, unsigned matIndex );
 };
 
 #endif

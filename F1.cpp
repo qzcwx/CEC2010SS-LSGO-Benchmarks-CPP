@@ -12,15 +12,6 @@
  * Hefei, Anhui, China.
  */
 
-F1::F1(RunParameter* runParam):Benchmarks(runParam){
-	dimension = runParam->dimension;
-	m_havenextGaussian=0;
-	Ovector = NULL;
-	minX = -100;
-	maxX = 100;
-	ID = 1;
-	lookup = lookupprepare(dimension);
-}
 
 F1::F1():Benchmarks(){
 	m_havenextGaussian=0;

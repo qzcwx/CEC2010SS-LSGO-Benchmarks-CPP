@@ -5,8 +5,8 @@
 
 class F16:public Benchmarks{
 protected:
+	void generateInterArray ( );
 public:
-	F16(RunParameter* runParam);
 	F16();
 	double compute(double* x) ;
 	double compute(vector<double> x) ;

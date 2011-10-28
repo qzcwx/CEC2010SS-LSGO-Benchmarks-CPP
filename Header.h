@@ -32,7 +32,6 @@
 
 using namespace std;
 
-Benchmarks* generateFuncObj(RunParameter* runParam, int funcID);
 Benchmarks* generateFuncObj(int funcID);
 
 #endif

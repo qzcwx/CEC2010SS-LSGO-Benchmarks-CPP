@@ -5,7 +5,6 @@
 
 class F1:public Benchmarks{
 public:
-	F1(RunParameter* runParam);
 	F1();
 	double compute(double* x) ;
 	double compute(vector<double> x) ;

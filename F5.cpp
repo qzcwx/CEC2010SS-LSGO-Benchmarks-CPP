@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * Single-group Shifted and m-rotated Elliptic Function
+ * Single-group Shifted and m-rotated Rastrigin¡¯s Function
  *
  * as defined in "Benchmark Functions for the CEC'2010 Special Session
  * and Competition on Large-Scale Global Optimization" by Ke Tang,
@@ -13,14 +13,7 @@
  * Hefei, Anhui, China.
  */
 
-F5::F5(RunParameter* runParam):Benchmarks(runParam){
-	dimension = runParam->dimension;
-	m_havenextGaussian=0;
-	Ovector = NULL;
-	minX = -5;
-	maxX = 5;
-	ID = 5;
-}
+
 
 F5::F5():Benchmarks(){
 	m_havenextGaussian=0;
@@ -69,9 +62,16 @@ double F5::compute(vector<double> x){
   double result = 0.0;
 
   if(Ovector == NULL) {
-    Ovector   = createShiftVector(dimension,minX,maxX);
-    Pvector   = createPermVector(dimension);
-    RotMatrix = createRotMatrix1D(nonSeparableGroupSize);
+		Ovector   = createShiftVector(dimension,minX,maxX);
+	  Pvector   = createPermVector(dimension);
+	  RotMatrix = createRotMatrix1D(nonSeparableGroupSize);
+
+/*
+		Pvector = new int[dimension];
+		for (int i=0; i<dimension; i++){
+			Pvector[i] = i; 
+		}
+		*/
   }
 
   for(i = 0; i < dimension; i++) {
