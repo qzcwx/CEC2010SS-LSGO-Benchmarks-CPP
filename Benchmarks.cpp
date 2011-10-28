@@ -110,7 +110,8 @@ double* Benchmarks::createShiftVector(int dim, double min,double max) {
 	int     i;
 	hw     = (D(0.5) * (max - min));
 	middle = (min + hw);
-	d      = (double*)malloc(sizeof(double) * dim);
+	//d      = (double*)malloc(sizeof(double) * dim);
+	d      = new double[dim];
 
 //	printf("middle = %1.20E\n",middle);
 //	printf("hw = %1.20E\n",hw);
@@ -137,7 +138,8 @@ double* Benchmarks::createShiftVector(int dim, double min,double max) {
 int* Benchmarks::createPermVector(int dim){
 	int* d;
 	int  i, j, k, t;
-	d = (int*)malloc(sizeof(int) * dim);
+	//d = (int*)malloc(sizeof(int) * dim);
+	d = new int[dim];
 
 	for (i = (dim - 1); i >= 0; i--) {
 		d[i] = i;
@@ -163,10 +165,12 @@ double** Benchmarks::createRotMatrix(int dim){
 	double** m;
 	int      i, j, k;
 	double   dp, t;
-	m = (double**)malloc(sizeof(double*) * dim);
+	//m = (double**)malloc(sizeof(double*) * dim);
+	m = new double*[dim];
 
 	for(i = 0; i < dim; i++) {
-		m[i] = (double*)malloc(sizeof(double) * dim);
+		//m[i] = (double*)malloc(sizeof(double) * dim);
+		m[i] = new double[dim];
 	}
 
 loop:
@@ -225,7 +229,8 @@ double* Benchmarks::createRotMatrix1D(int dim){
 	double*  b;
 	int      i, j, k;
 	a = createRotMatrix(dim);
-	b = (double*)malloc(sizeof(double) * (dim * dim));
+	//b = (double*)malloc(sizeof(double) * (dim * dim));
+	b = new double[dim*dim];
 	k = 0;
 
 	for (i = 0; i < dim; i++) {
@@ -251,7 +256,8 @@ double** Benchmarks::createMultiRotateMatrix1D(int dim, int num){
 	int i;
 
 	/*  allocate storage for an array of pointers */
-	a =(double **) malloc(num * sizeof(double *));
+	//a =(double **) malloc(num * sizeof(double *));
+	a = new double*[num];
 
 	/* for each pointer, allocate storage for an array of ints */
 	for (i = 0; i < num; i++) {
@@ -267,7 +273,8 @@ double* Benchmarks::lookupprepare(int dim) {
 	double* lookup;
 	i         = (dim - 1);
 	pownum    = (1.0 / i);
-	lookup    = (double*)malloc(dim * sizeof(double));
+	//lookup    = (double*)malloc(dim * sizeof(double));
+	lookup    = new double[dim];
 	lookup[i] = 1.0e6;
 	lookup[0] = 1.0;
 
@@ -374,7 +381,8 @@ double Benchmarks::ackley(double *x, int dim, int k)
 
 double* Benchmarks::multiply(double*vector, double*matrix,int dim){
 	int    i,j;
-	double*result = (double*)malloc(sizeof(double) * dim);
+	//double*result = (double*)malloc(sizeof(double) * dim);
+	double*result = new double[dim];
 
 	for(i = dim - 1; i >= 0; i--) {
 		result[i] = 0;

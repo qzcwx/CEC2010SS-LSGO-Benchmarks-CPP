@@ -1,5 +1,4 @@
 CC=g++
-LDLIBS=-lshark
 LDFLAGS= -Wl,-rpath
 CXXFLAGS=-Wall -pedantic  -O4
 #CXXFLAGS=-Wall -pedantic  -ggdb -DDEBUG
@@ -9,7 +8,7 @@ F1.o F2.o F3.o F4.o F5.o F6.o F7.o F8.o F9.o F10.o\
 F11.o F12.o F13.o F14.o F15.o F16.o F17.o F18.o F19.o F20.o 
 
 demo: $(OBJECTS)
-	$(CC) $(CXXFLAGS) -o demo.out $(OBJECTS) $(LDLIBS)
+	$(CC) $(CXXFLAGS) -o demo.out $(OBJECTS)
 
 demo.o: demo.cpp Header.h  Benchmarks.h \
 F1.h F2.h F3.h F4.h F5.h F6.h F7.h F8.h F9.h F10.h\
@@ -83,7 +82,7 @@ F20.o: F20.h Benchmarks.h F20.cpp
 
 .PHONY : clean clrout
 clean:
-	rm -f demo demo.out $(OBJECTS)
+	rm -f demo.out $(OBJECTS)
 
 clrout:
 	rm -fr result trace out outout

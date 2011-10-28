@@ -31,13 +31,9 @@ To clean up:
 *********************
 make clean
 
-Configuration file:
-**********
-Please edit 'configure.ini' to configure the parameter of running benchmarks
-
 Contact:
 ********
 Wenxiang Chen @ Computer Science Department, Colorado State University
-Please contact me at <chenwx@cs.colostate.edu> for any enquiries.
+Please feel free to contact me at <chenwx@cs.colostate.edu> for any enquiries or suggestions.
 
 Last Updated: Thu Oct 27 23:43:35 MDT 2011
