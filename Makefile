@@ -1,31 +1,28 @@
 CC=g++
-LDFLAGS= -Wl,-rpath
-CXXFLAGS=-Wall -pedantic  -O4
-#CXXFLAGS=-Wall -pedantic  -ggdb -DDEBUG
+CXXFLAGS=-Wall -pedantic -std=c++98 -O3
+#CXXFLAGS=-Wall -pedantic -std=c++98  -ggdb -DDEBUG
 
 OBJECTS=demo.o  Benchmarks.o \
 F1.o F2.o F3.o F4.o F5.o F6.o F7.o F8.o F9.o F10.o\
 F11.o F12.o F13.o F14.o F15.o F16.o F17.o F18.o F19.o F20.o 
 
-demo: $(OBJECTS)
-	$(CC) $(CXXFLAGS) -o demo.out $(OBJECTS)
+demo: 	$(OBJECTS)
+	$(CC) $(CXXFLAGS) -o demo $(OBJECTS)
 
 demo.o: demo.cpp Header.h  Benchmarks.h \
 F1.h F2.h F3.h F4.h F5.h F6.h F7.h F8.h F9.h F10.h\
 F11.h F12.h F13.h F14.h F15.h F16.h F17.h F18.h F19.h F20.h
 	$(CC) $(CXXFLAGS) -c demo.cpp 
 
-
 Benchmarks.o:  Benchmarks.h Benchmarks.cpp
 	$(CC) $(CXXFLAGS) -c Benchmarks.cpp
-
 
 F1.o: F1.h Benchmarks.h F1.cpp
 	$(CC) $(CXXFLAGS) -c F1.cpp
 
 F2.o: F2.h Benchmarks.h F2.cpp
 	$(CC) $(CXXFLAGS) -c F2.cpp
-	
+
 F3.o: F3.h Benchmarks.h F3.cpp
 	$(CC) $(CXXFLAGS) -c F3.cpp
 
@@ -64,25 +61,22 @@ F14.o: F14.h Benchmarks.h F14.cpp
 
 F15.o: F15.h Benchmarks.h F15.cpp
 	$(CC) $(CXXFLAGS) -c F15.cpp
-	
+
 F16.o: F16.h Benchmarks.h F16.cpp
 	$(CC) $(CXXFLAGS) -c F16.cpp
 
 F17.o: F17.h Benchmarks.h F17.cpp
 	$(CC) $(CXXFLAGS) -c F17.cpp
-	
+
 F18.o: F18.h Benchmarks.h F18.cpp
 	$(CC) $(CXXFLAGS) -c F18.cpp
-	
+
 F19.o: F19.h Benchmarks.h F19.cpp
 	$(CC) $(CXXFLAGS) -c F19.cpp
 
 F20.o: F20.h Benchmarks.h F20.cpp
 	$(CC) $(CXXFLAGS) -c F20.cpp
 
-.PHONY : clean clrout
+.PHONY : clean
 clean:
-	rm -f demo.out $(OBJECTS)
-
-clrout:
-	rm -fr result trace out outout
+	rm -f demo $(OBJECTS)
