@@ -38,14 +38,14 @@ double F3::compute(double*x){
     anotherz[i] = x[i] - Ovector[i];
   }
 
-  // // T_{osz}
-  // transform_osz(anotherz);
+  // T_{osz}
+  transform_osz(anotherz);
   
-  // // T_{asy}^{0.2}
-  // transform_asy(anotherz, 0.2);
+  // T_{asy}^{0.2}
+  transform_asy(anotherz, 0.2);
 
-  // // lambda
-  // Lambda(anotherz, 10);
+  // lambda
+  Lambda(anotherz, 10);
 
   result = ackley(anotherz,dimension);
 
