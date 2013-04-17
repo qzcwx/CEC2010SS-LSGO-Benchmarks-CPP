@@ -5,7 +5,8 @@
 #include <iostream>
 #include <cstring>
 #include <cstdio>
-
+#include <fstream>
+#include <sstream>
 
 // benchmark set header files
 #include "F1.h"
@@ -28,7 +29,6 @@
 #include "F18.h"
 #include "F19.h"
 #include "F20.h"
-
 
 using namespace std;
 

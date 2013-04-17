@@ -1,5 +1,5 @@
 CC=g++
-CXXFLAGS=-Wall -pedantic -std=c++98 -O3
+CXXFLAGS=-Wall -pedantic -std=c++11 -O3
 #CXXFLAGS=-Wall -pedantic -std=c++98  -ggdb -DDEBUG
 
 OBJECTS=demo.o  Benchmarks.o \
