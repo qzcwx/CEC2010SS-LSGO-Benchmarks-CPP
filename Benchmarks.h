@@ -112,6 +112,8 @@ class Benchmarks{
   /* for CEC2013SS */
   double* readOvector();
   void transform_osz(double* z);
+  void transform_asy(double* z, double beta);
+  void Lambda(double* z, double alpha);
   int sign(double x);
   double hat(double x);
   double c1(double x);

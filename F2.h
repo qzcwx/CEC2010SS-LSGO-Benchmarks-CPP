@@ -10,7 +10,7 @@ protected:
 public:
 	F2();
 	double compute(double* x) ;
-	double compute(vector<double> x) ;
+	/* double compute(vector<double> x) ; */
 	~F2();
 };
 #endif

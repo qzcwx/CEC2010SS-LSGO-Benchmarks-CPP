@@ -1,18 +1,5 @@
 #include "F2.h"
 
-/**
- * Shifted Rastrigin's Function
- *
- * as defined in "Benchmark Functions for the CEC'2010 Special Session
- * and Competition on Large-Scale Global Optimization" by Ke Tang,
- * Xiaodong Li, P. N. Suganthan, Zhenyu Yang, and Thomas Weise
- * published as technical report on January 8, 2010 at Nature Inspired
- * Computation and Applications Laboratory (NICAL), School of Computer
- * Science and Technology, University of Science and Technology of China,
- * Hefei, Anhui, China.
- */
-
-
 F2::F2():Benchmarks(){
 	m_havenextGaussian=0;
 	Ovector = NULL;
@@ -31,29 +18,39 @@ double F2::compute(double* x){
   double result;
 
   if(Ovector == NULL) {
-    Ovector = createShiftVector(dimension,minX,maxX);
+    // Ovector = createShiftVector(dimension,minX,maxX);
+    Ovector = readOvector();
   }
 
   for(i = 0; i < dimension; i++) {
     anotherz[i] = x[i] - Ovector[i];
   }
 
-  result = rastrigin(anotherz,dimension);
-  return(result);
-}
+  // T_{osz}
+  transform_osz(anotherz);
+  
+  // T_{asy}^{0.2}
+  transform_asy(anotherz, 0.2);
 
-double F2::compute(vector<double> x){
-  int    i;
-  double result;
-
-  if(Ovector == NULL) {
-    Ovector = createShiftVector(dimension,minX,maxX);
-  }
-
-  for(i = 0; i < dimension; i++) {
-    anotherz[i] = x[i] - Ovector[i];
-  }
+  // lambda
+  Lambda(anotherz, 10);
 
   result = rastrigin(anotherz,dimension);
   return(result);
 }
+
+// double F2::compute(vector<double> x){
+//   int    i;
+//   double result;
+
+//   if(Ovector == NULL) {
+//     Ovector = createShiftVector(dimension,minX,maxX);
+//   }
+
+//   for(i = 0; i < dimension; i++) {
+//     anotherz[i] = x[i] - Ovector[i];
+//   }
+
+//   result = rastrigin(anotherz,dimension);
+//   return(result);
+// }

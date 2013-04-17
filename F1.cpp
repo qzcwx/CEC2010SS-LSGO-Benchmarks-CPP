@@ -1,18 +1,5 @@
 #include "F1.h"
 
-/**
- * Shifted Elliptic Function
- *
- * as defined in "Benchmark Functions for the CEC'2010 Special Session
- * and Competition on Large-Scale Global Optimization" by Ke Tang,
- * Xiaodong Li, P. N. Suganthan, Zhenyu Yang, and Thomas Weise
- * published as technical report on January 8, 2010 at Nature Inspired
- * Computation and Applications Laboratory (NICAL), School of Computer
- * Science and Technology, University of Science and Technology of China,
- * Hefei, Anhui, China.
- */
-
-
 F1::F1():Benchmarks(){
   m_havenextGaussian=0;
   Ovector = NULL;

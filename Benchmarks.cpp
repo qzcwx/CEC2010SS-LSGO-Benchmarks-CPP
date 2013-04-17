@@ -169,7 +169,25 @@ void Benchmarks::transform_osz(double* z)
   for (int i = 0; i < dimension; ++i)
     {
       z[i] = sign(z[i]) * exp( hat(z[i]) + 0.049 * ( sin( c1(z[i]) * hat(z[i]) ) + sin( c2(z[i])* hat(z[i]) )  ) ) ;
-  
+    }
+}
+
+void Benchmarks::transform_asy(double* z, double beta)
+{
+  for (int i = 0; i < dimension; ++i)
+    {
+      if (z[i]>0)
+        {
+          z[i] = pow(z[i], 1 + beta * i/((double) (dimension-1)) * sqrt(z[i]) );
+        }
+    }
+}
+
+void Benchmarks::Lambda(double* z, double alpha)
+{
+  for (int i = 0; i < dimension; ++i)
+    {
+      z[i] = z[i] * pow(alpha, 0.5 * i/((double) (dimension-1)) );
     }
 }
 
@@ -753,4 +771,5 @@ double Benchmarks::c2(double x)
       return 3.1;
     }
 }
+
 
