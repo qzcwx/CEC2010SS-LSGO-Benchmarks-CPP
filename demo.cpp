@@ -47,9 +47,9 @@ int main(){
 
 	delete []X;
 
-	for (unsigned i=0; i<runTimeVec.size(); i++){
-		printf ( "%f\n", runTimeVec[i] );
-	}
+	// for (unsigned i=0; i<runTimeVec.size(); i++){
+	// 	printf ( "%f\n", runTimeVec[i] );
+	// }
 
 	return 0;
 }

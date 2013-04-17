@@ -78,8 +78,7 @@ int Benchmarks::nextInt(int n) {
 }
 
 double Benchmarks::nextDouble(){
-	return ((((L(next(26))) <<
-					(L(27))) + (L(next(27)))) / (double) ((L(1)) << (L(53))));
+	return ((((L(next(26))) <<(L(27))) + (L(next(27)))) / (double) ((L(1)) << (L(53))));
 }
 
 double Benchmarks::nextGaussian(){
