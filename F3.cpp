@@ -39,7 +39,7 @@ double F3::compute(double*x){
   }
 
   // T_{osz}
-  transform_osz(anotherz);
+  transform_osz(anotherz,dimension);
   
   // T_{asy}^{0.2}
   transform_asy(anotherz, 0.2);

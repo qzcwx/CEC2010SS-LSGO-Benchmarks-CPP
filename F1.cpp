@@ -27,7 +27,7 @@ double F1::compute(double* x) {
   }
 
   // T_{OSZ}
-  transform_osz(anotherz);
+  transform_osz(anotherz,dimension);
   
   // result = elliptic(anotherz,dimension);
   result = elliptic(anotherz,dimension);

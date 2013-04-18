@@ -63,7 +63,7 @@ double F4::compute(double*x){
   // cout<<endl;
 
   // T_{osz}
-  transform_osz(anotherz);
+  // transform_osz(anotherz);
   
   // s_size non-separable part with rotation
   int c = 0;

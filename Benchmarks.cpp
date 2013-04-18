@@ -162,10 +162,10 @@ double* Benchmarks::readOvector()
   return d;
 }
 
-void Benchmarks::transform_osz(double* z)
+void Benchmarks::transform_osz(double* z, int dim)
 {
   // apply osz transformation to z
-  for (int i = 0; i < dimension; ++i)
+  for (int i = 0; i < dim; ++i)
     {
       z[i] = sign(z[i]) * exp( hat(z[i]) + 0.049 * ( sin( c1(z[i]) * hat(z[i]) ) + sin( c2(z[i])* hat(z[i]) )  ) ) ;
     }
@@ -493,19 +493,6 @@ double* Benchmarks::rotateVector(int i, int &c)
 //   return lookup;
 // }
 
-double Benchmarks::elliptic(double*x,int dim) {
-  double result = 0.0;
-  int    i;
-  
-  // for(i = dim - 1; i >= 0; i--) {
-  for(i=0; i<dim; i++)
-    {
-      // printf("%f\n", pow(1.0e6,  i/((double)(dim - 1)) ));
-      result += pow(1.0e6,  i/((double)(dim - 1)) ) * x[i] * x[i];
-    }
-  
-  return(result);
-}
 
 
 /* 
@@ -526,6 +513,20 @@ double Benchmarks::elliptic(double*x,int dim) {
 //   return(result);
 // }
 
+double Benchmarks::elliptic(double*x,int dim) {
+  double result = 0.0;
+  int    i;
+  
+  transform_osz(x, dim);
+  // for(i = dim - 1; i >= 0; i--) {
+  for(i=0; i<dim; i++)
+    {
+      // printf("%f\n", pow(1.0e6,  i/((double)(dim - 1)) ));
+      result += pow(1.0e6,  i/((double)(dim - 1)) ) * x[i] * x[i];
+    }
+  
+  return(result);
+}
 
 
 unsigned Benchmarks::getID(){
