@@ -6,13 +6,11 @@ F1::F1():Benchmarks(){
   minX = -100;
   maxX = 100;
   ID = 1;
-  lookup = lookupprepare(dimension);
 }
 
 F1::~F1(){
   // delete[] Ovector;
   free(Ovector);
-  delete[] lookup;
 }
 
 double F1::compute(double* x) {
@@ -31,6 +29,7 @@ double F1::compute(double* x) {
   // T_{OSZ}
   transform_osz(anotherz);
   
+  // result = elliptic(anotherz,dimension);
   result = elliptic(anotherz,dimension);
   return(result);
 }

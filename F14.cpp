@@ -20,7 +20,7 @@ F14::F14():Benchmarks(){
 	minX = -100;
 	maxX = 100;
 	ID = 14;
-	lookup = lookupprepare(nonSeparableGroupSize);
+	// lookup = lookupprepare(nonSeparableGroupSize);
 
 	Ovector=createShiftVector(dimension,minX,maxX);
 	Pvector=createPermVector(dimension);
@@ -30,7 +30,7 @@ F14::F14():Benchmarks(){
 F14::~F14(){
 	delete[] Ovector;
 	delete[] Pvector;
-	delete[] lookup;
+	// delete[] lookup;
 	delete[] RotMatrix;
 }
 
@@ -43,26 +43,26 @@ double F14::compute(double*x){
 	}
 
 	for(k=1;k<=dimension/(nonSeparableGroupSize);k++){
-		result+=rot_elliptic(anotherz,nonSeparableGroupSize,k);
+		// result+=rot_elliptic(anotherz,nonSeparableGroupSize,k);
 	}
 
 	return(result);
 }
 
-double F14::compute(vector<double> x){
-	int i,k;
-	double result=0.0;
+// double F14::compute(vector<double> x){
+// 	int i,k;
+// 	double result=0.0;
 
-	for(i=0;i<dimension;i++){
-		anotherz[i]=x[i]-Ovector[i];
-	}
+// 	for(i=0;i<dimension;i++){
+// 		anotherz[i]=x[i]-Ovector[i];
+// 	}
 
-	for(k=1;k<=dimension/(nonSeparableGroupSize);k++){
-		result+=rot_elliptic(anotherz,nonSeparableGroupSize,k);
-	}
+// 	for(k=1;k<=dimension/(nonSeparableGroupSize);k++){
+// 		// result+=rot_elliptic(anotherz,nonSeparableGroupSize,k);
+// 	}
 
-	return(result);
-}
+// 	return(result);
+// }
 
 /* 
  * ===  FUNCTION  ======================================================================

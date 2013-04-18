@@ -49,9 +49,8 @@ void Benchmarks::setNonSeparableGroupSize(int inVal){
 
 Benchmarks::~Benchmarks(){
   delete[] anotherz;
-  delete[] anotherz1;
-  delete[] anotherz2;
-
+  // delete[] anotherz1;
+  // delete[] anotherz2;
 }
 
 int Benchmarks::next(int bits) {
@@ -135,7 +134,7 @@ double* Benchmarks::readOvector()
   // read O vector from file in csv format
   double* d = new double[dimension];
   stringstream ss;
-  ss<< "F" << ID << "/xopt.txt";
+  ss<< "cdatafiles/" << "F" << ID << "-xopt.txt";
   ifstream file (ss.str());
   string value;
   string line;
@@ -217,6 +216,36 @@ int* Benchmarks::createPermVector(int dim){
   return(d);
 }
 
+int* Benchmarks::readPermVector(){
+  int* d;
+  
+  d = new int[dimension];
+
+  stringstream ss;
+  ss<< "cdatafiles/" << "F" << ID << "-p.txt";
+  ifstream file (ss.str());
+  int c=0;
+  string value;
+
+  if (file.is_open())
+    {
+      while (getline(file,value,','))
+        {
+          d[c++] = stod(value) - 1;
+        }
+    }
+  
+  // for (int i = 0; i < dimension; ++i)
+  //   {
+  //     printf("%d\n", d[i]);
+  //   }
+  
+  return(d);
+}
+
+
+
+
 //Create a random rotation matrix
 double** Benchmarks::createRotMatrix(int dim){
   double** m;
@@ -278,6 +307,7 @@ double** Benchmarks::createRotMatrix(int dim){
   }
 }
 
+
 /**
  * Create a random rotation matrix
  */
@@ -324,57 +354,196 @@ double** Benchmarks::createMultiRotateMatrix1D(int dim, int num){
   return (a);
 }
 
-double* Benchmarks::lookupprepare(int dim) {
-  double pownum;
-  int    i;
-  double* lookup;
-  i         = (dim - 1);
-  pownum    = (1.0 / i);
-  //lookup    = (double*)malloc(dim * sizeof(double));
-  lookup    = new double[dim];
-  lookup[i] = 1.0e6;
-  lookup[0] = 1.0;
+double** Benchmarks::readR(int sub_dim)
+{
+  double** m;
 
-  for (--i; i > 0; i--) {
-    lookup[i] = pow(1.0e6, i * pownum);
-  }
-  return lookup;
+  m = new double*[sub_dim];
+  for (int i = 0; i< sub_dim; i++)
+    {
+      m[i] = new double[sub_dim];
+    }
+  
+  stringstream ss;
+  ss<< "cdatafiles/" << "F" << ID << "-R"<<sub_dim<<".txt";
+  // cout<<ss.str()<<endl;
+  
+  ifstream file (ss.str());
+  string value;
+  string line;
+  int i=0;
+  int j;
+  
+  if (file.is_open())
+    {
+      stringstream iss;
+      while ( getline(file, line) )
+        {
+          j=0;
+          iss<<line;
+          while (getline(iss, value, ','))
+            {
+              // printf("%d,%d\t%f\n", i,j, stod(value));
+              m[i][j] = stod(value);
+              // printf("done\n");
+              j++;
+            }
+          iss.clear();
+          i++;
+        }
+      file.close();
+    }
+  else
+    {
+      cout<<"Cannot open datafiles"<<endl;
+    }
+  return m;
 }
+
+int* Benchmarks::readS(int num)
+{
+  s = new int[num];
+  
+  stringstream ss;
+  ss<< "cdatafiles/" << "F" << ID << "-s.txt";
+  ifstream file (ss.str());
+  int c=0;
+  string value;
+  if (file.is_open())
+    {
+      while (getline(file,value))
+        {
+          // cout<<stod(value)<<endl;
+          s[c++] = stod(value);
+        }
+    }
+  return s;
+}
+
+double* Benchmarks::readW(int num)
+{
+  w = new double[num];
+  
+  stringstream ss;
+  ss<< "cdatafiles/" << "F" << ID << "-w.txt";
+  ifstream file (ss.str());
+  int c=0;
+  string value;
+  if (file.is_open())
+    {
+      while (getline(file,value))
+        {
+          // cout<<stod(value)<<endl;
+          w[c++] = stod(value);
+        }
+    }
+
+  return w;
+}
+
+double* Benchmarks::rotateVector(int i, int &c)
+{
+  double* z = new double[s[i]];
+  // cout<<"s "<<s[i]<<endl;
+
+  // copy values into the new vector
+  for (int j = c; j < c+s[i]; ++j)
+    {
+      // cout<<"j-c "<<j-c<<" p "<<Pvector[j]<<endl;
+      z[j-c] = anotherz[Pvector[j]];
+    }
+  // cout<<"copy done"<<endl;
+  
+  if (s[i]==25)
+    {
+      anotherz1 = multiply( z, r25, s[i]);
+    }
+  else if (s[i] == 50)
+    {    
+      anotherz1 = multiply( z, r50, s[i]);
+    }
+  else if (s[i] == 100) 
+    {
+      anotherz1 = multiply( z, r100, s[i]);
+    }
+  else
+    {
+      cout<< "size of rotation matrix out of range" <<endl;
+    }
+  delete []z;
+  c = c + s[i];
+  return anotherz1;
+}
+
+
+// double* Benchmarks::lookupprepare(int dim) {
+//   double pownum;
+//   int    i;
+//   double* lookup;
+//   i         = (dim - 1);
+//   pownum    = (1.0 / i);
+//   //lookup    = (double*)malloc(dim * sizeof(double));
+//   lookup    = new double[dim];
+//   lookup[i] = 1.0e6;
+//   lookup[0] = 1.0;
+
+//   for (--i; i > 0; i--) {
+//     lookup[i] = pow(1.0e6, i * pownum);
+//   }
+//   return lookup;
+// }
+
+double Benchmarks::elliptic(double*x,int dim) {
+  double result = 0.0;
+  int    i;
+  
+  // for(i = dim - 1; i >= 0; i--) {
+  for(i=0; i<dim; i++)
+    {
+      // printf("%f\n", pow(1.0e6,  i/((double)(dim - 1)) ));
+      result += pow(1.0e6,  i/((double)(dim - 1)) ) * x[i] * x[i];
+    }
+  
+  return(result);
+}
+
 
 /* 
  * Basic Mathematical Functions' Implementation
  */
-// elliptic function for F1 ~ F8
-double Benchmarks::elliptic(double*x,int dim) {
-  double result = 0.0;
-  int    i;
+// // elliptic function for F1 ~ F8
+// double Benchmarks::elliptic(double*x,int dim) {
+//   double result = 0.0;
+//   int    i;
 
-  for(i = dim - 1; i >= 0; i--) {
-    if (dim == nonSeparableGroupSize){
-      result += lookup2[i] * x[i] * x[i];
-    }else{
-      result += lookup[i] * x[i] * x[i];
-    }
-  }
-  return(result);
-}
+//   for(i = dim - 1; i >= 0; i--) {
+//     if (dim == nonSeparableGroupSize){
+//       result += lookup2[i] * x[i] * x[i];
+//     }else{
+//       result += lookup[i] * x[i] * x[i];
+//     }
+//   }
+//   return(result);
+// }
+
+
 
 unsigned Benchmarks::getID(){
   return ID;
 }
 
-// elliptic function for F9 ~ 
-double Benchmarks::elliptic(double*x, int dim, int k) {
-  double result = 0.0;
-  int    i;
+// // elliptic function for F9 ~ 
+// double Benchmarks::elliptic(double*x, int dim, int k) {
+//   double result = 0.0;
+//   int    i;
 
-  for(i=dim/k-1;i>=0;i--)
-    {
-      result+=lookup2[i]*x[Pvector[dim/k+i]]*x[Pvector[dim/k+i]];
-    }
+//   for(i=dim/k-1;i>=0;i--)
+//     {
+//       result+=lookup2[i]*x[Pvector[dim/k+i]]*x[Pvector[dim/k+i]];
+//     }
 
-  return(result);
-}
+//   return(result);
+// }
 
 // rastrigin function for F1~F8
 double Benchmarks::rastrigin(double*x,int dim){
@@ -451,36 +620,53 @@ double* Benchmarks::multiply(double*vector, double*matrix,int dim){
   return(result);
 }
 
-// Rotated Elliptic Function for F1 & F4
-double Benchmarks::rot_elliptic(double*x,int dim){
-  double result = 0.0;
-  double *z = multiply(x,RotMatrix,dim);
+double* Benchmarks::multiply(double*vector, double**matrix,int dim){
+  int    i,j;
+  //double*result = (double*)malloc(sizeof(double) * dim);
+  double*result = new double[dim];
 
-  result = elliptic(z,dim);
+  for(i = dim - 1; i >= 0; i--) {
+    result[i] = 0;
 
-  delete[] z;
+    for(j = dim - 1; j >= 0; j--) {
+      result[i] += vector[j] * matrix[i][j];
+    }
+  }
+
   return(result);
 }
 
-// Rotated Elliptic Function for F9 & F14
-double Benchmarks::rot_elliptic(double*x,int dim, int k){
-  double result=0.0;
 
-  int i,j;
-  for(i=dim-1;i>=0;i--)
-    {
-      anotherz1[i]=0;
-      for(j=dim-1;j>=0;j--)
-        {
-          anotherz1[i]+=x[Pvector[(k-1)*dim+j]]*RotMatrix[dim*j+i];
-        }
-    }
-  for(i=dim-1;i>=0;i--)
-    {
-      result+=lookup[i]*anotherz1[i]*anotherz1[i];
-    }
-  return(result);
-}
+// // Rotated Elliptic Function for F1 & F4
+// double Benchmarks::rot_elliptic(double*x,int dim){
+//   double result = 0.0;
+//   double *z = multiply(x,RotMatrix,dim);
+
+//   result = elliptic(z,dim);
+
+//   delete[] z;
+//   return(result);
+// }
+
+// // Rotated Elliptic Function for F9 & F14
+// double Benchmarks::rot_elliptic(double*x,int dim, int k){
+//   double result=0.0;
+
+//   int i,j;
+//   for(i=dim-1;i>=0;i--)
+//     {
+//       anotherz1[i]=0;
+//       for(j=dim-1;j>=0;j--)
+//         {
+//           anotherz1[i]+=x[Pvector[(k-1)*dim+j]]*RotMatrix[dim*j+i];
+//         }
+//     }
+//   for(i=dim-1;i>=0;i--)
+//     {
+//       result+=lookup[i]*anotherz1[i]*anotherz1[i];
+//     }
+//   return(result);
+// }
 
 // Rotated Rastrigin Function for F1~F8
 double Benchmarks::rot_rastrigin(double*x,int dim){

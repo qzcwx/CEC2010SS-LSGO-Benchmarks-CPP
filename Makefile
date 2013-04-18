@@ -1,6 +1,6 @@
 CC=g++
-CXXFLAGS=-Wall -pedantic -std=c++11 -O3
-#CXXFLAGS=-Wall -pedantic -std=c++98  -ggdb -DDEBUG
+# CXXFLAGS=-Wall -pedantic -std=c++11 -O3
+CXXFLAGS=-Wall -pedantic -std=c++11  -ggdb -DDEBUG
 
 OBJECTS=demo.o  Benchmarks.o \
 F1.o F2.o F3.o F4.o F5.o F6.o F7.o F8.o F9.o F10.o\

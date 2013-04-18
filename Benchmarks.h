@@ -35,18 +35,20 @@ class Benchmarks{
   double* createRotMatrix1D(int dim);
   double** createMultiRotateMatrix1D(int dim, int num);
 
-  double* lookupprepare(int dim);
+  /* double* lookupprepare(int dim); */
 
   // Basic mathematical functions' declaration
   double* multiply(double*vector, double*matrix,int dim);
+  double* multiply(double*vector, double**matrix,int dim);
   double elliptic(double*x,int dim);
-  double elliptic(double*x, int dim, int k);
+  /* double elliptic_new(double*x,int dim); */
+  /* double elliptic(double*x, int dim, int k); */
   double rastrigin(double*x,int dim);
   double rastrigin(double *x, int dim, int k); 
   double ackley(double*x,int dim);
   double ackley(double*x,int dim, int k);
-  double rot_elliptic(double*x,int dim);
-  double rot_elliptic(double*x,int dim, int k);
+  /* double rot_elliptic(double*x,int dim); */
+  /* double rot_elliptic(double*x,int dim, int k); */
   double rot_rastrigin(double*x,int dim);
   double rot_rastrigin(double *x,int dim,int k);
   double rot_ackley(double*x,int dim);
@@ -59,6 +61,8 @@ class Benchmarks{
   double rosenbrock(double*x,int dim, int k);
   unsigned convertMatrixToArrayIndex ( unsigned i, unsigned j );
   void createIndexMapping (  ); 
+  /* void extractElemByPerm(); */
+  double* rotateVector(int i, int &c);
 
   int64_t M;
   int64_t A;
@@ -68,12 +72,13 @@ class Benchmarks{
   bool  m_havenextGaussian;
   bool setOvectorToZero;
 
+  int s_size;
   double *Ovector;
   int*    Pvector;
   double* RotMatrix;
   double** MultiRotMatrix1D;
-  double *lookup;
-  double *lookup2;
+  /* double *lookup; */
+  /* double *lookup2; */
 
   double* anotherz;
   double* anotherz1;
@@ -89,6 +94,13 @@ class Benchmarks{
   int64_t functionInitRandomSeed;
   struct IndexMap *indexMap;
   unsigned arrSize;
+
+  double** r25;
+  double** r50;
+  double** r100;
+  int* s;
+  double* w;
+  
 
  public:
   Benchmarks();
@@ -111,6 +123,11 @@ class Benchmarks{
         
   /* for CEC2013SS */
   double* readOvector();
+  int* readPermVector();
+  double** readR(int sub_dim);
+  int* readS(int num);
+  double* readW(int num);
+  
   void transform_osz(double* z);
   void transform_asy(double* z, double beta);
   void Lambda(double* z, double alpha);
@@ -118,6 +135,8 @@ class Benchmarks{
   double hat(double x);
   double c1(double x);
   double c2(double x);
+  
+  
 };
 
 #endif

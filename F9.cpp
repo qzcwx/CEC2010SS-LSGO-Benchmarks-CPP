@@ -19,20 +19,21 @@ F9::F9():Benchmarks(){
 	minX = -100;
 	maxX = 100;
 	ID = 9;
-	lookup = lookupprepare(nonSeparableGroupSize);
-	lookup2 = lookupprepare(dimension/2);
+	// lookup = lookupprepare(nonSeparableGroupSize);
+	// lookup2 = lookupprepare(dimension/2);
 }
 
 F9::~F9(){
 	delete[] Ovector;
 	delete[] Pvector;
-	delete[] lookup;
-	delete[] lookup2;
+	// delete[] lookup;
+	// delete[] lookup2;
 	delete[] RotMatrix;
 }
 
 double F9::compute(double*x){
-	int k, i;
+	// int k, i;
+	int i;
 	double result=0.0;
 
 	if(Ovector==NULL){
@@ -62,14 +63,14 @@ double F9::compute(double*x){
 	//		printf ( "%d\n", Pvector[i] );
 	//	}
 
-	for(k=1;k<=dimension/(2*nonSeparableGroupSize);k++){
-		result+=rot_elliptic(anotherz,nonSeparableGroupSize,k);
-	}
+	// for(k=1;k<=dimension/(2*nonSeparableGroupSize);k++){
+        //   result+=rot_elliptic(anotherz,nonSeparableGroupSize,k);
+	// }
 
 //	printf("Rotated Part = %1.20E\n", result);
 //	printf("Non-Rotated Part = %1.20E\n", elliptic(anotherz, dimension, 2));
 
-	result+=elliptic(anotherz, dimension, 2);
+	// result+=elliptic(anotherz, dimension, 2);
 
 	return(result);
 }
@@ -100,11 +101,11 @@ double F9::compute(vector<double> x){
 	}
 
 	for(k=1;k<=dimension/(2*nonSeparableGroupSize);k++){
-		result+=rot_elliptic(anotherz,nonSeparableGroupSize,k);
+		// result+=rot_elliptic(anotherz,nonSeparableGroupSize,k);
 	}
 
 //	printf("Rotated Part = %1.20E\n", result);
 
-	result+=elliptic(anotherz, dimension, 2);
+	// result+=elliptic(anotherz, dimension, 2);
 	return(result);
 }
