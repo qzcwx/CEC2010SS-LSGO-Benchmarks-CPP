@@ -518,6 +518,7 @@ double Benchmarks::elliptic(double*x,int dim) {
   int    i;
   
   transform_osz(x, dim);
+
   // for(i = dim - 1; i >= 0; i--) {
   for(i=0; i<dim; i++)
     {

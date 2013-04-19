@@ -8,7 +8,7 @@ protected:
 public:
 	F5();
 	double compute(double* x) ;
-	double compute(vector<double> x) ;
+	/* double compute(vector<double> x) ; */
 	~F5();
 };
 

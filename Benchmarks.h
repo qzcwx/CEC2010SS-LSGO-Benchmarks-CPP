@@ -8,8 +8,8 @@
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
-#include	<cmath>
-#include	<ctime>
+#include <cmath>
+#include <ctime>
 using namespace std;
 
 #define PI (3.141592653589793238462643383279)

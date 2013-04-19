@@ -1,18 +1,6 @@
 #include "F5.h"
 #include <stdio.h>
 
-/**
- * Single-group Shifted and m-rotated Rastrigin¡¯s Function
- *
- * as defined in "Benchmark Functions for the CEC'2010 Special Session
- * and Competition on Large-Scale Global Optimization" by Ke Tang,
- * Xiaodong Li, P. N. Suganthan, Zhenyu Yang, and Thomas Weise
- * published as technical report on January 8, 2010 at Nature Inspired
- * Computation and Applications Laboratory (NICAL), School of Computer
- * Science and Technology, University of Science and Technology of China,
- * Hefei, Anhui, China.
- */
-
 
 
 F5::F5():Benchmarks(){
@@ -21,12 +9,12 @@ F5::F5():Benchmarks(){
 	minX = -5;
 	maxX = 5;
 	ID = 5;
+        s_size = 7;
 }
 
 F5::~F5(){
  	delete[] Ovector;
  	delete[] Pvector;
- 	delete[] RotMatrix;
 }
 
 double F5::compute(double*x){
@@ -34,60 +22,91 @@ double F5::compute(double*x){
   double result = 0.0;
 
   if(Ovector == NULL) {
-    Ovector   = createShiftVector(dimension,minX,maxX);
-    Pvector   = createPermVector(dimension);
-    RotMatrix = createRotMatrix1D(nonSeparableGroupSize);
+    // Ovector   = createShiftVector(dimension,minX,maxX);
+    Ovector = readOvector();
+    // Pvector   = createPermVector(dimension);
+    Pvector = readPermVector();
+    // RotMatrix = createRotMatrix1D(nonSeparableGroupSize);
+    r25 = readR(25);
+    r50 = readR(50);
+    r100 = readR(100);
+    s = readS(s_size);
+    w = readW(s_size);
   }
 
   for(i = 0; i < dimension; i++) {
     anotherz[i] = x[i] - Ovector[i];
   }
+  
+  // T_{osz}
+  transform_osz(anotherz, dimension);
+  
+  // T_{asy}^{0.2}
+  transform_asy(anotherz, 0.2);
 
-  for(i = 0; i < nonSeparableGroupSize; i++) {
-    anotherz1[i] = anotherz[Pvector[i]];
-  }
+  // lambda
+  Lambda(anotherz, 10);
 
-  for(i = nonSeparableGroupSize; i < dimension; i++) {
-    anotherz2[i - nonSeparableGroupSize] = anotherz[Pvector[i]];
-  }
+  // s_size non-separable part with rotation
+  int c = 0;
+  for (i = 0; i < s_size; i++)
+    {
+      // cout<<"c="<<c<<", i="<<i<<endl;
+      anotherz1 = rotateVector(i, c);
+      // cout<<"done rot"<<endl;
+      result += w[i] * rastrigin(anotherz1, s[i]);
+      delete []anotherz1;
+      cout<<result<<endl;
+    }
 
-  result =
-    rot_rastrigin(anotherz1,nonSeparableGroupSize) * 1.0e6 + rastrigin(
-      anotherz2,dimension - nonSeparableGroupSize);
+  // one separable part without rotation
+  double* z = new double[dimension-c];
+  for (i = c; i < dimension; i++)
+    {
+      // cout<<i-c<<" "<<Pvector[i]<<" "<<anotherz[Pvector[i]]<<endl;
+      z[i-c] = anotherz[Pvector[i]];
+    }
+  
+  cout<<rastrigin(z, dimension-c)<<endl;
+  
+  result += rastrigin(z, dimension-c);
+  delete[] z;
+
+
   return(result);
 }
 
-double F5::compute(vector<double> x){ 
-  int    i;
-  double result = 0.0;
+// double F5::compute(vector<double> x){ 
+//   int    i;
+//   double result = 0.0;
 
-  if(Ovector == NULL) {
-		Ovector   = createShiftVector(dimension,minX,maxX);
-	  Pvector   = createPermVector(dimension);
-	  RotMatrix = createRotMatrix1D(nonSeparableGroupSize);
+//   if(Ovector == NULL) {
+// 		Ovector   = createShiftVector(dimension,minX,maxX);
+// 	  Pvector   = createPermVector(dimension);
+// 	  RotMatrix = createRotMatrix1D(nonSeparableGroupSize);
 
-/*
-		Pvector = new int[dimension];
-		for (int i=0; i<dimension; i++){
-			Pvector[i] = i; 
-		}
-		*/
-  }
+// /*
+// 		Pvector = new int[dimension];
+// 		for (int i=0; i<dimension; i++){
+// 			Pvector[i] = i; 
+// 		}
+// 		*/
+//   }
 
-  for(i = 0; i < dimension; i++) {
-    anotherz[i] = x[i] - Ovector[i];
-  }
+//   for(i = 0; i < dimension; i++) {
+//     anotherz[i] = x[i] - Ovector[i];
+//   }
 
-  for(i = 0; i < nonSeparableGroupSize; i++) {
-    anotherz1[i] = anotherz[Pvector[i]];
-  }
+//   for(i = 0; i < nonSeparableGroupSize; i++) {
+//     anotherz1[i] = anotherz[Pvector[i]];
+//   }
 
-  for(i = nonSeparableGroupSize; i < dimension; i++) {
-    anotherz2[i - nonSeparableGroupSize] = anotherz[Pvector[i]];
-  }
+//   for(i = nonSeparableGroupSize; i < dimension; i++) {
+//     anotherz2[i - nonSeparableGroupSize] = anotherz[Pvector[i]];
+//   }
 
-  result =
-    rot_rastrigin(anotherz1,nonSeparableGroupSize) * 1.0e6 + rastrigin(
-      anotherz2,dimension - nonSeparableGroupSize);
-  return(result);
-}
+//   result =
+//     rot_rastrigin(anotherz1,nonSeparableGroupSize) * 1.0e6 + rastrigin(
+//       anotherz2,dimension - nonSeparableGroupSize);
+//   return(result);
+// }
