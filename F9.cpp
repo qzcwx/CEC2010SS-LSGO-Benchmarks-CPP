@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 F9::F9():Benchmarks(){
-  m_havenextGaussian=0;
   Ovector = NULL;
   minX = -100;
   maxX = 100;
@@ -15,7 +14,6 @@ F9::~F9(){
   delete[] Pvector;
   // delete[] lookup;
   // delete[] lookup2;
-  delete[] RotMatrix;
 }
 
 double F9::compute(double*x){

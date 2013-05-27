@@ -1,89 +1,54 @@
 #include "F11.h"
 #include <stdio.h>
 
-/**
- * D/2m-group Shifted and m-rotated Ackley’s Function
- *
- * as defined in "Benchmark Functions for the CEC'2010 Special Session
- * and Competition on Large-Scale Global Optimization" by Ke Tang,
- * Xiaodong Li, P. N. Suganthan, Zhenyu Yang, and Thomas Weise
- * published as technical report on January 8, 2010 at Nature Inspired
- * Computation and Applications Laboratory (NICAL), School of Computer
- * Science and Technology, University of Science and Technology of China,
- * Hefei, Anhui, China.
- */
-
-
 F11::F11():Benchmarks(){
-	m_havenextGaussian=0;
-	Ovector = NULL;
-	minX = -32;
-	maxX = 32;
-	ID = 11;
+  Ovector = NULL;
+  minX = -32;
+  maxX = 32;
+  ID = 11;
+  s_size=20;
+  
 }
 
 F11::~F11(){
-	delete[] Ovector;
-	delete[] Pvector;
-	delete[] RotMatrix;
+  delete[] Ovector;
+  delete[] Pvector;
 }
 
 double F11::compute(double*x){
-	int i,k;
-	double result=0.0;
+  int i;
+  double result=0.0;
 
-	if(Ovector==NULL)
-	{
-		Ovector=createShiftVector(dimension,minX,maxX);
-		Pvector=createPermVector(dimension);
-		RotMatrix=createRotMatrix1D(nonSeparableGroupSize);
-	}
+  if(Ovector==NULL)
+    {
+      Ovector = readOvector();
+      Pvector = readPermVector();
+      r25 = readR(25);
+      r50 = readR(50);
+      r100 = readR(100);
+      s = readS(s_size);
+      w = readW(s_size);
+    }
 
-	for(i=0;i<dimension;i++)
-	{
-		anotherz[i]=x[i]-Ovector[i];
-	}
+  for(i=0;i<dimension;i++)
+    {
+      anotherz[i]=x[i]-Ovector[i];
+    }
 
-	for(k=1;k<=dimension/(2*nonSeparableGroupSize);k++)
-	{
-		result+=rot_ackley(anotherz,nonSeparableGroupSize,k);
-	}
-//	printf("Rot Ackley = %1.16E\n", result);
-
-	double sepSum = ackley(anotherz,dimension,2);
-//	printf("Separable Ackley = %1.16E\n", sepSum);
-
-	result+=sepSum;
-	return(result);
+    // s_size non-separable part with rotation
+  int c = 0;
+  for (i = 0; i < s_size; i++)
+    {
+      // cout<<"c="<<c<<", i="<<i<<endl;
+      anotherz1 = rotateVector(i, c);
+      // cout<<"done rot"<<endl;
+      result += w[i] * schwefel(anotherz1, s[i]);
+      delete []anotherz1;
+      // cout<<result<<endl;
+    }
+  
+  
+  return(result);
 }
 
 
-double F11::compute(vector<double> x){
-	int i,k;
-	double result=0.0;
-
-	if(Ovector==NULL)
-	{
-		Ovector=createShiftVector(dimension,minX,maxX);
-		Pvector=createPermVector(dimension);
-		RotMatrix=createRotMatrix1D(nonSeparableGroupSize);
-	}
-
-	for(i=0;i<dimension;i++)
-	{
-		anotherz[i]=x[i]-Ovector[i];
-	}
-
-	for(k=1;k<=dimension/(2*nonSeparableGroupSize);k++)
-	{
-		result+=rot_ackley(anotherz,nonSeparableGroupSize,k);
-
-	}
-//	printf("Rot Ackley = %1.16E\n", result);
-
-	double sepSum = ackley(anotherz,dimension,2);
-//	printf("Separable Ackley = %1.16E\n", sepSum);
-
-	result+=sepSum;
-	return(result);
-}
