@@ -51,7 +51,7 @@ double F4::compute(double*x){
     s = readS(s_size);
     w = readW(s_size);
   }
-
+  
   for(i = 0; i < dimension; i++) {
     anotherz[i] = x[i] - Ovector[i];
   }
@@ -62,7 +62,7 @@ double F4::compute(double*x){
   //   }
   // cout<<endl;
 
-  // T_{osz}
+  // // T_{osz}
   // transform_osz(anotherz);
   
   // s_size non-separable part with rotation
@@ -74,7 +74,7 @@ double F4::compute(double*x){
       // cout<<"done rot"<<endl;
       result += w[i] * elliptic(anotherz1, s[i]);
       delete []anotherz1;
-      cout<<result<<endl;
+      // cout<<result<<endl;
     }
   
   // one separable part without rotation
@@ -85,7 +85,7 @@ double F4::compute(double*x){
       z[i-c] = anotherz[Pvector[i]];
     }
   
-  cout<<elliptic(z, dimension-c)<<endl;
+  // cout<<"sep\n"<<elliptic(z, dimension-c)<<endl;
   
   result += elliptic(z, dimension-c);
   delete[] z;
