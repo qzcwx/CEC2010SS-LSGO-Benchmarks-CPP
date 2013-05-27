@@ -13,7 +13,6 @@
  */
 
 F3::F3():Benchmarks(){
-	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -32;
 	maxX = 32;

@@ -4,7 +4,6 @@
 
 
 F5::F5():Benchmarks(){
-	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -5;
 	maxX = 5;

@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 F6::F6():Benchmarks(){
-  m_havenextGaussian=0;
   Ovector = NULL;
   minX = -32;
   maxX = 32;

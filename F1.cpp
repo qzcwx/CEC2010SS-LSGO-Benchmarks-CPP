@@ -1,7 +1,6 @@
 #include "F1.h"
 
 F1::F1():Benchmarks(){
-  m_havenextGaussian=0;
   Ovector = NULL;
   minX = -100;
   maxX = 100;

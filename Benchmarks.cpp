@@ -787,6 +787,12 @@ double Benchmarks::schwefel(double*x,int dim){
   int    j;
   double s1 = 0;
   double s2 = 0;
+  
+  // T_{osz}
+  transform_osz(x,dim);
+  
+  // T_{asy}^{0.2}
+  transform_asy(x, 0.2, dim);
 
   for (j = 0; j < dim; j++) {
     s1 += x[j];

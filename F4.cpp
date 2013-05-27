@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 F4::F4():Benchmarks(){
-	m_havenextGaussian=0;
 	Ovector = NULL;
 	minX = -100;
 	maxX = 100;
