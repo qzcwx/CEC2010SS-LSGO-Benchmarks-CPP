@@ -10,8 +10,8 @@ int main(){
   unsigned dim = 1000;
   // unsigned funToRun[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
   // unsigned funToRun[] = {1};
-  unsigned funToRun[] = {1,2,3,4,5};
-  unsigned funNum = 5;
+  unsigned funToRun[] = {4,5};
+  unsigned funNum = 2;
   unsigned run = 1;
 
   vector<double> runTimeVec;
