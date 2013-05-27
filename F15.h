@@ -9,7 +9,6 @@ protected:
 public:
 	F15();
 	double compute(double* x) ;
-	double compute(vector<double> x) ;
 	~F15();
 };
 

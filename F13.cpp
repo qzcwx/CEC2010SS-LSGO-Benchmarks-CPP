@@ -1,81 +1,56 @@
 #include "F13.h"
 #include <stdio.h>
 
-/**
- * D/2m-group Shifted m-dimensional Rosenbrock¡¯s Function
- *
- * as defined in "Benchmark Functions for the CEC'2010 Special Session
- * and Competition on Large-Scale Global Optimization" by Ke Tang,
- * Xiaodong Li, P. N. Suganthan, Zhenyu Yang, and Thomas Weise
- * published as technical report on January 8, 2010 at Nature Inspired
- * Computation and Applications Laboratory (NICAL), School of Computer
- * Science and Technology, University of Science and Technology of China,
- * Hefei, Anhui, China.
- */
-
 F13::F13():Benchmarks(){
-	m_havenextGaussian=0;
-	Ovector = NULL;
-	minX = -100;
-	maxX = 100;
-	ID = 13;
+  m_havenextGaussian=0;
+  Ovector = NULL;
+  minX = -100;
+  maxX = 100;
+  ID = 13;
+  s_size = 20;
+  dimension = 905;        // because of overlapping
+  overlap = 5;
 }
 
 F13::~F13(){
-	delete[] Ovector;
-	delete[] Pvector;
+  delete[] Ovector;
+  delete[] Pvector;
 }
 
 double F13::compute(double*x){
-	int i,k;
-	double result=0.0;
+  int i;
+  double result=0.0;
+        
+  if(Ovector==NULL)
+    {
+      Ovector = readOvector();
+      Pvector = readPermVector();
+      r25 = readR(25);
+      r50 = readR(50);
+      r100 = readR(100);
+      s = readS(s_size);
+      w = readW(s_size);
+    }
+  
 
-	if(Ovector==NULL)
-	{
-		Ovector=createShiftVector(dimension,minX,maxX-1);
-		Pvector=createPermVector(dimension);
-	}
+  for(i=0;i<dimension;i++)
+    {
+      anotherz[i]=x[i]-Ovector[i];
+    }
+  cout<<"o"<<endl;
 
-	for(i=0;i<dimension;i++)
-	{
-		anotherz[i]=x[i]-Ovector[i];
-	}
-
-	for(k=1;k<=dimension/(2*nonSeparableGroupSize);k++)
-	{
-		result+=rosenbrock(anotherz,nonSeparableGroupSize,k);
-	}
-
-//	printf("Rosenbrock = %1.16E\n", result);
-//	printf("Sphere = %1.16E\n", sphere(anotherz, dimension, 2));
-
-	result+=sphere(anotherz, dimension, 2);
-	return(result);
+  // s_size non-separable part with rotation
+  int c = 0;
+  for (i = 0; i < s_size; i++)
+    {
+      // cout<<"c="<<c<<", i="<<i<<endl;
+      anotherz1 = rotateVectorConform(i, c);
+      // cout<<"done rot"<<endl;
+      result += w[i] * schwefel(anotherz1, s[i]);
+      delete []anotherz1;
+      // cout<<result<<endl;
+    }
+  
+  return(result);
 }
 
-double F13::compute(vector<double> x){
-	int i,k;
-	double result=0.0;
-
-	if(Ovector==NULL)
-	{
-		Ovector=createShiftVector(dimension,minX,maxX-1);
-		Pvector=createPermVector(dimension);
-	}
-
-	for(i=0;i<dimension;i++)
-	{
-		anotherz[i]=x[i]-Ovector[i];
-	}
-
-	for(k=1;k<=dimension/(2*nonSeparableGroupSize);k++)
-	{
-		result+=rosenbrock(anotherz,nonSeparableGroupSize,k);
-	}
-
-//	printf("Rosenbrock = %1.16E\n", result);
-//	printf("Sphere = %1.16E\n", sphere(anotherz, dimension, 2));
-
-	result+=sphere(anotherz, dimension, 2);
-	return(result);
-}

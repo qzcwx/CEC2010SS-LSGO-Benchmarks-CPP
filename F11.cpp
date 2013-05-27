@@ -35,7 +35,7 @@ double F11::compute(double*x){
       anotherz[i]=x[i]-Ovector[i];
     }
 
-    // s_size non-separable part with rotation
+  // s_size non-separable part with rotation
   int c = 0;
   for (i = 0; i < s_size; i++)
     {

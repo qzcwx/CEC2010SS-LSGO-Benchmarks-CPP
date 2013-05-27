@@ -63,6 +63,7 @@ class Benchmarks{
   void createIndexMapping (  ); 
   /* void extractElemByPerm(); */
   double* rotateVector(int i, int &c);
+  double* rotateVectorConform(int i, int &c);
 
   int64_t M;
   int64_t A;
@@ -73,6 +74,7 @@ class Benchmarks{
   bool setOvectorToZero;
 
   int s_size;
+  int overlap;
   double *Ovector;
   int*    Pvector;
   double* RotMatrix;
@@ -135,7 +137,6 @@ class Benchmarks{
   double hat(double x);
   double c1(double x);
   double c2(double x);
-  
   
 };
 

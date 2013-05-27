@@ -475,6 +475,38 @@ double* Benchmarks::rotateVector(int i, int &c)
   return anotherz1;
 }
 
+double* Benchmarks::rotateVectorConform(int i, int &c)
+{
+  double* z = new double[s[i]];
+  printf("i=%d\tc=%d\tl=%d\tu=%d\n", i, c, c - (i)*overlap, c +s[i] - (i)*overlap);
+  
+  // copy values into the new vector
+  for (int j = c - i*overlap; j < c +s[i] - i*overlap; ++j)
+    {
+      // cout<<"j-c "<<j-c<<" p "<<Pvector[j]<<endl;
+      z[j-(c - i*overlap)] = anotherz[Pvector[j]];
+    }
+  // cout<<"copy done"<<endl;
+  if (s[i]==25)
+    {
+      anotherz1 = multiply( z, r25, s[i]);
+    }
+  else if (s[i] == 50)
+    {    
+      anotherz1 = multiply( z, r50, s[i]);
+    }
+  else if (s[i] == 100) 
+    {
+      anotherz1 = multiply( z, r100, s[i]);
+    }
+  else
+    {
+      cout<< "size of rotation matrix out of range" <<endl;
+    }
+  delete []z;
+  c = c + s[i];
+  return anotherz1;
+}
 
 // double* Benchmarks::lookupprepare(int dim) {
 //   double pownum;
