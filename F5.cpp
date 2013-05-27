@@ -72,6 +72,8 @@ double F5::compute(double*x){
   // cout<<rastrigin(z, dimension-c)<<endl;
   
   result += rastrigin(z, dimension-c);
+  free(z);
+  
   delete[] z;
 
 

@@ -587,6 +587,15 @@ double Benchmarks::ackley(double*x,int dim){
   double sum;
   int    i;
 
+  // T_{osz}
+  transform_osz(x,dim);
+  
+  // T_{asy}^{0.2}
+  transform_asy(x, 0.2, dim);
+
+  // lambda
+  Lambda(x, 10, dim);
+
   for(i = dim - 1; i >= 0; i--) {
     sum1 += (x[i] * x[i]);
     sum2 += cos(2.0 * PI * x[i]);

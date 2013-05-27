@@ -10,7 +10,7 @@ int main(){
   unsigned dim = 1000;
   // unsigned funToRun[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
   // unsigned funToRun[] = {1};
-  unsigned funToRun[] = {5};
+  unsigned funToRun[] = {6};
   unsigned funNum = 1;
   unsigned run = 1;
 
