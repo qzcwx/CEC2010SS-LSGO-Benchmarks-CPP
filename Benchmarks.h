@@ -129,8 +129,8 @@ class Benchmarks{
   double* readW(int num);
   
   void transform_osz(double* z, int dim);
-  void transform_asy(double* z, double beta);
-  void Lambda(double* z, double alpha);
+  void transform_asy(double* z, double beta, int dim);
+  void Lambda(double* z, double alpha, int dim);
   int sign(double x);
   double hat(double x);
   double c1(double x);

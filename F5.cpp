@@ -38,14 +38,15 @@ double F5::compute(double*x){
     anotherz[i] = x[i] - Ovector[i];
   }
   
-  // T_{osz}
-  transform_osz(anotherz, dimension);
+  // put them inside rastrigin function
+  // // T_{osz}
+  // transform_osz(anotherz, dimension);
   
-  // T_{asy}^{0.2}
-  transform_asy(anotherz, 0.2);
+  // // T_{asy}^{0.2}
+  // transform_asy(anotherz, 0.2);
 
-  // lambda
-  Lambda(anotherz, 10);
+  // // lambda
+  // Lambda(anotherz, 10);
 
   // s_size non-separable part with rotation
   int c = 0;
@@ -56,7 +57,7 @@ double F5::compute(double*x){
       // cout<<"done rot"<<endl;
       result += w[i] * rastrigin(anotherz1, s[i]);
       delete []anotherz1;
-      cout<<result<<endl;
+      // cout<<result<<endl;
     }
 
   // one separable part without rotation
@@ -67,7 +68,8 @@ double F5::compute(double*x){
       z[i-c] = anotherz[Pvector[i]];
     }
   
-  cout<<rastrigin(z, dimension-c)<<endl;
+  // cout<<"sep"<<endl;
+  // cout<<rastrigin(z, dimension-c)<<endl;
   
   result += rastrigin(z, dimension-c);
   delete[] z;

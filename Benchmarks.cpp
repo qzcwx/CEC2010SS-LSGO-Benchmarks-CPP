@@ -171,22 +171,22 @@ void Benchmarks::transform_osz(double* z, int dim)
     }
 }
 
-void Benchmarks::transform_asy(double* z, double beta)
+void Benchmarks::transform_asy(double* z, double beta, int dim)
 {
-  for (int i = 0; i < dimension; ++i)
+  for (int i = 0; i < dim; ++i)
     {
       if (z[i]>0)
         {
-          z[i] = pow(z[i], 1 + beta * i/((double) (dimension-1)) * sqrt(z[i]) );
+          z[i] = pow(z[i], 1 + beta * i/((double) (dim-1)) * sqrt(z[i]) );
         }
     }
 }
 
-void Benchmarks::Lambda(double* z, double alpha)
+void Benchmarks::Lambda(double* z, double alpha, int dim)
 {
-  for (int i = 0; i < dimension; ++i)
+  for (int i = 0; i < dim; ++i)
     {
-      z[i] = z[i] * pow(alpha, 0.5 * i/((double) (dimension-1)) );
+      z[i] = z[i] * pow(alpha, 0.5 * i/((double) (dim-1)) );
     }
 }
 
@@ -551,11 +551,20 @@ unsigned Benchmarks::getID(){
 double Benchmarks::rastrigin(double*x,int dim){
   double sum = 0;
   int    i;
+  
+  // T_{osz}
+  transform_osz(x, dim);
+  
+  // T_{asy}^{0.2}
+  transform_asy(x, 0.2, dim);
+
+  // lambda
+  Lambda(x, 10, dim);
 
   for(i = dim - 1; i >= 0; i--) {
     sum += x[i] * x[i] - 10.0 * cos(2 * PI * x[i]) + 10.0;
   }
-
+  
   return(sum);
 }
 

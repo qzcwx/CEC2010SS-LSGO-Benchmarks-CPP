@@ -42,10 +42,10 @@ double F3::compute(double*x){
   transform_osz(anotherz,dimension);
   
   // T_{asy}^{0.2}
-  transform_asy(anotherz, 0.2);
+  transform_asy(anotherz, 0.2, dimension);
 
   // lambda
-  Lambda(anotherz, 10);
+  Lambda(anotherz, 10, dimension);
   
   result = ackley(anotherz,dimension);
 
