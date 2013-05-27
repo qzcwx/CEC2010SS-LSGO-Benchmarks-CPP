@@ -4,12 +4,11 @@
 #include "Benchmarks.h"
 
 class F12:public Benchmarks{
-protected:
-public:
-	F12();
-	double compute(double* x) ;
-	double compute(vector<double> x) ;
-	~F12();
+ protected:
+ public:
+  F12();
+  double compute(double* x) ;
+  ~F12();
 };
 
 #endif
