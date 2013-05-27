@@ -21,11 +21,8 @@ double F5::compute(double*x){
   double result = 0.0;
 
   if(Ovector == NULL) {
-    // Ovector   = createShiftVector(dimension,minX,maxX);
     Ovector = readOvector();
-    // Pvector   = createPermVector(dimension);
     Pvector = readPermVector();
-    // RotMatrix = createRotMatrix1D(nonSeparableGroupSize);
     r25 = readR(25);
     r50 = readR(50);
     r100 = readR(100);
