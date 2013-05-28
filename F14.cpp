@@ -40,10 +40,17 @@ double F14::compute(double*x){
       w = readW(s_size);
     }
 
-  
-  // for(i=0;i<dimension;i++){
-  //   anotherz[i]=x[i]-Ovector[i];
-  // }
+  // s_size non-separable part with rotation
+  int c = 0;
+  for (i = 0; i < s_size; i++)
+    {
+      // cout<<"c="<<c<<", i="<<i<<endl;
+      anotherz1 = rotateVectorConflict(i, c, x);
+      // cout<<"done rot"<<endl;
+      result += w[i] * schwefel(anotherz1, s[i]);
+      delete []anotherz1;
+      // cout<<result<<endl;
+    }
   
   return(result);
 }

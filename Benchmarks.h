@@ -64,6 +64,7 @@ class Benchmarks{
   /* void extractElemByPerm(); */
   double* rotateVector(int i, int &c);
   double* rotateVectorConform(int i, int &c);
+  double* rotateVectorConflict(int i, int &c, double* x);
 
   int64_t M;
   int64_t A;
