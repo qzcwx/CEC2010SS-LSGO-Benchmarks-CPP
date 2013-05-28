@@ -8,17 +8,16 @@ int main(){
   double* X;
   Benchmarks* fp=NULL;
   unsigned dim = 1000;
-  // unsigned funToRun[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+  unsigned funToRun[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
   // unsigned funToRun[] = {1};
-  unsigned funToRun[] = {14};
-  unsigned funNum = 1;
+  // unsigned funToRun[] = {15};
+  unsigned funNum = 15;
   unsigned run = 1;
 
   vector<double> runTimeVec;
   struct timeval start, end;
   long seconds, useconds;    
   double mtime;
-
         
   X = new double[dim];
   for (unsigned i=0; i<dim; i++){
@@ -27,15 +26,13 @@ int main(){
 
   for (unsigned i=0; i<funNum; i++){
     fp = generateFuncObj(funToRun[i]); 
-    
     printf("F %d value = %1.20E\n", fp->getID(), fp->compute(X));
-    
     gettimeofday(&start, NULL);
     for (unsigned j=0; j < run; j++){
       fp->compute(X);
     }
     gettimeofday(&end, NULL);
-
+    
     seconds  = end.tv_sec  - start.tv_sec;
     useconds = end.tv_usec - start.tv_usec;
 
@@ -90,16 +87,6 @@ Benchmarks* generateFuncObj(int funcID){
     fp = new F14();
   }else if (funcID==15){
     fp = new F15();
-  }else if (funcID==16){
-    fp = new F16();
-  }else if (funcID==17){
-    fp = new F17();
-  }else if (funcID==18){
-    fp = new F18();
-  }else if (funcID==19){
-    fp = new F19();
-  }else if (funcID==20){
-    fp = new F20();
   }else{
     cerr<<"Fail to locate Specified Function Index"<<endl;
     exit(-1);

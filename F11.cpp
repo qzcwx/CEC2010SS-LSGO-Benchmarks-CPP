@@ -7,12 +7,31 @@ F11::F11():Benchmarks(){
   maxX = 32;
   ID = 11;
   s_size=20;
-  
+  anotherz = new double[dimension];  
 }
 
 F11::~F11(){
   delete[] Ovector;
   delete[] Pvector;
+
+  delete[] anotherz;
+  for (int i = 0; i < 25; ++i)
+    {
+      delete[] r25[i];
+    }
+  for (int i = 0; i < 50; ++i)
+    {
+      delete[] r50[i];
+    }
+  for (int i = 0; i < 100; ++i)
+    {
+      delete[] r100[i];
+    }
+  delete[] r25;
+  delete[] r50;
+  delete[] r100;
+  delete[] s;
+  delete[] w;
 }
 
 double F11::compute(double*x){
@@ -46,7 +65,6 @@ double F11::compute(double*x){
       delete []anotherz1;
       // cout<<result<<endl;
     }
-  
   
   return(result);
 }

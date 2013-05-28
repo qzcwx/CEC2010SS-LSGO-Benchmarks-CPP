@@ -9,14 +9,13 @@ F4::F4():Benchmarks(){
         s_size = 7;
 	// lookup2 = lookupprepare(nonSeparableGroupSize);
 	// lookup = lookupprepare(dimension - nonSeparableGroupSize);
+        anotherz = new double[dimension];
 }
 
 F4::~F4(){
  	delete[] Ovector;
  	delete[] Pvector;
- 	// delete[] RotMatrix;
-	// delete[] lookup;
-	// delete[] lookup2;
+        delete[] anotherz;
         
         for (int i = 0; i < 25; ++i)
           {

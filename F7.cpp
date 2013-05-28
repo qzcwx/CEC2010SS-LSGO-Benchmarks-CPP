@@ -8,11 +8,30 @@ F7::F7():Benchmarks(){
 	maxX = 100;
 	ID = 7;
         s_size = 7;
+        anotherz = new double[dimension];
 }
 
 F7::~F7(){
 	delete[] Ovector;
 	delete[] Pvector;
+        delete[] anotherz;        for (int i = 0; i < 25; ++i)
+          {
+            delete[] r25[i];
+          }
+        for (int i = 0; i < 50; ++i)
+          {
+            delete[] r50[i];
+          }
+        for (int i = 0; i < 100; ++i)
+          {
+            delete[] r100[i];
+          }
+        delete[] r25;
+        delete[] r50;
+        delete[] r100;
+        delete[] s;
+        delete[] w;
+
 }
 
 
@@ -55,8 +74,7 @@ double F7::compute(double*x){
     }
   
   result += sphere(z, dimension-c);
-  free(z);
-
+  delete []z;
 
   return(result);
 }

@@ -10,11 +10,31 @@ F13::F13():Benchmarks(){
   s_size = 20;
   dimension = 905;        // because of overlapping
   overlap = 5;
+  anotherz = new double[dimension];
 }
 
 F13::~F13(){
   delete[] Ovector;
   delete[] Pvector;
+  delete[] anotherz;
+  for (int i = 0; i < 25; ++i)
+    {
+      delete[] r25[i];
+    }
+  for (int i = 0; i < 50; ++i)
+    {
+      delete[] r50[i];
+    }
+  for (int i = 0; i < 100; ++i)
+    {
+      delete[] r100[i];
+    }
+  delete[] r25;
+  delete[] r50;
+  delete[] r100;
+  delete[] s;
+  delete[] w;
+
 }
 
 double F13::compute(double*x){

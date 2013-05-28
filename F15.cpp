@@ -3,33 +3,32 @@
 
 F15::F15():Benchmarks(){
   Ovector = NULL;
-  minX = -5;
-  maxX = 5;
+  minX = -100;
+  maxX = 100;
   ID = 15;
+  anotherz = new double[dimension];
 }
 
 F15::~F15(){
   delete[] Ovector;
-  delete[] Pvector;
-  delete[] RotMatrix;
+  delete[] anotherz;
 }
 
 double F15::compute(double*x){
-  int i,k;
+  int i;
   double result=0.0;
-        
-  if (Ovector==NULL)
-    {
-            
-    }
-        
-  for(i=0;i<dimension;i++){
-    anotherz[i]=x[i]-Ovector[i];
-  }
 
-  for(k=1;k<=dimension/(nonSeparableGroupSize);k++){
-    result+=rot_rastrigin(anotherz,nonSeparableGroupSize,k);
-  }
+  if(Ovector==NULL)
+    {
+      Ovector = readOvector();
+    }
+
+  for(i=0;i<dimension;i++)
+    {
+      anotherz[i]=x[i]-Ovector[i];
+    }
+
+  result=schwefel(anotherz, dimension);
 
   return(result);
 }

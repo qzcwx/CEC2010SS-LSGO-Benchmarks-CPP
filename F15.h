@@ -4,12 +4,12 @@
 #include "Benchmarks.h"
 
 class F15:public Benchmarks{
-protected:
-	void generateInterArray ( );
-public:
-	F15();
-	double compute(double* x) ;
-	~F15();
+ protected:
+  void generateInterArray ( );
+ public:
+  F15();
+  double compute(double* x) ;
+  ~F15();
 };
 
 #endif

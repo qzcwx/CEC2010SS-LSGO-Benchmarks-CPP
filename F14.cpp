@@ -12,8 +12,31 @@ F14::F14():Benchmarks(){
 }
 
 F14::~F14(){
-  delete[] Ovector;
+  for (int i = 0; i < s_size; i++)
+    {
+      free(OvectorVec[i]);
+    }
+  free(OvectorVec);
+  
   delete[] Pvector;
+    for (int i = 0; i < 25; ++i)
+    {
+      delete[] r25[i];
+    }
+  for (int i = 0; i < 50; ++i)
+    {
+      delete[] r50[i];
+    }
+  for (int i = 0; i < 100; ++i)
+    {
+      delete[] r100[i];
+    }
+  delete[] r25;
+  delete[] r50;
+  delete[] r100;
+  delete[] s;
+  delete[] w;
+
 }
 
 double F14::compute(double*x){

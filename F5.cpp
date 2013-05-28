@@ -4,16 +4,37 @@
 
 
 F5::F5():Benchmarks(){
-	Ovector = NULL;
-	minX = -5;
-	maxX = 5;
-	ID = 5;
-        s_size = 7;
+  Ovector = NULL;
+  minX = -5;
+  maxX = 5;
+  ID = 5;
+  s_size = 7;
+  anotherz = new double[dimension];
 }
 
 F5::~F5(){
- 	delete[] Ovector;
- 	delete[] Pvector;
+  delete[] Ovector;
+  delete[] Pvector;
+          delete[] anotherz;
+        
+        for (int i = 0; i < 25; ++i)
+          {
+            delete[] r25[i];
+          }
+        for (int i = 0; i < 50; ++i)
+          {
+            delete[] r50[i];
+          }
+        for (int i = 0; i < 100; ++i)
+          {
+            delete[] r100[i];
+          }
+        delete[] r25;
+        delete[] r50;
+        delete[] r100;
+        delete[] s;
+        delete[] w;
+
 }
 
 double F5::compute(double*x){
@@ -68,7 +89,7 @@ double F5::compute(double*x){
   // cout<<rastrigin(z, dimension-c)<<endl;
   
   result += rastrigin(z, dimension-c);
-  free(z);
+  // free(z);
   
   delete[] z;
 

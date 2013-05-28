@@ -11,21 +11,21 @@ Benchmarks::Benchmarks(){
     exit(-1);
   }
 
-  // allocate the memory
-  anotherz = new double[dimension];
-  anotherz1= new double[nonSeparableGroupSize];
-  anotherz2= new double[dimension - nonSeparableGroupSize];
+  // // allocate the memory
+  // anotherz = new double[dimension];
+  // anotherz1= new double[nonSeparableGroupSize];
+  // anotherz2= new double[dimension - nonSeparableGroupSize];
 
   // Runtime Parameters setting
   setOvectorToZero = false;
 
-  functionInitRandomSeed = L(0);
-  m_seed= functionInitRandomSeed;
-  M  = 0x5DEECE66D;
-  A  = 0xB;
+  // functionInitRandomSeed = L(0);
+  // m_seed= functionInitRandomSeed;
+  // M  = 0x5DEECE66D;
+  // A  = 0xB;
 
-  minX = -100;
-  maxX = 100;
+  // minX = -100;
+  // maxX = 100;
 }
 
 void Benchmarks::setMinX(int inVal){
@@ -48,7 +48,7 @@ void Benchmarks::setNonSeparableGroupSize(int inVal){
 }
 
 Benchmarks::~Benchmarks(){
-  delete[] anotherz;
+  // delete[] anotherz;
   // delete[] anotherz1;
   // delete[] anotherz2;
 }

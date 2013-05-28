@@ -5,11 +5,13 @@ F1::F1():Benchmarks(){
   minX = -100;
   maxX = 100;
   ID = 1;
+  anotherz = new double[dimension];
 }
 
 F1::~F1(){
-  // delete[] Ovector;
-  free(Ovector);
+  delete[] Ovector;
+  delete[] anotherz;
+  // (Ovector);
 }
 
 double F1::compute(double* x) {

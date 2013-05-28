@@ -13,14 +13,16 @@
  */
 
 F3::F3():Benchmarks(){
-	Ovector = NULL;
-	minX = -32;
-	maxX = 32;
-	ID = 3;
+  Ovector = NULL;
+  minX = -32;
+  maxX = 32;
+  ID = 3;
+  anotherz = new double[dimension];
 }
 
 F3::~F3(){
- 	delete[] Ovector;
+  delete[] Ovector;
+  delete[] anotherz;
 }
 
 

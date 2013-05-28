@@ -1,16 +1,17 @@
 #include "F2.h"
 
 F2::F2():Benchmarks(){
-	Ovector = NULL;
-	minX = -5;
-	maxX = 5;
-	ID = 2;
+  Ovector = NULL;
+  minX = -5;
+  maxX = 5;
+  ID = 2;
+  anotherz = new double[dimension];
 }
 
 F2::~F2(){
- 	delete[] Ovector;
+  delete[] Ovector;
+  delete[] anotherz;
 }
-
 
 double F2::compute(double* x){
   int    i;
@@ -24,7 +25,7 @@ double F2::compute(double* x){
   for(i = 0; i < dimension; i++) {
     anotherz[i] = x[i] - Ovector[i];
   }
-
+  
   // // T_{osz}
   // transform_osz(anotherz, dimension);
   
@@ -37,19 +38,3 @@ double F2::compute(double* x){
   result = rastrigin(anotherz,dimension);
   return(result);
 }
-
-// double F2::compute(vector<double> x){
-//   int    i;
-//   double result;
-
-//   if(Ovector == NULL) {
-//     Ovector = createShiftVector(dimension,minX,maxX);
-//   }
-
-//   for(i = 0; i < dimension; i++) {
-//     anotherz[i] = x[i] - Ovector[i];
-//   }
-
-//   result = rastrigin(anotherz,dimension);
-//   return(result);
-// }

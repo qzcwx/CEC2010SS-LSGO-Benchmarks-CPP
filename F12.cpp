@@ -2,15 +2,16 @@
 #include <stdio.h>
 
 F12::F12():Benchmarks(){
-  m_havenextGaussian=0;
   Ovector = NULL;
   minX = -100;
   maxX = 100;
   ID = 12;
+  anotherz = new double[dimension];
 }
 
 F12::~F12(){
   delete[] Ovector;
+  delete[] anotherz;
 }
 
 double F12::compute(double*x){
