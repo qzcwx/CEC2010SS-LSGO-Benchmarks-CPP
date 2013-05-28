@@ -32,12 +32,11 @@ double F13::compute(double*x){
       w = readW(s_size);
     }
   
-
   for(i=0;i<dimension;i++)
     {
       anotherz[i]=x[i]-Ovector[i];
     }
-  cout<<"o"<<endl;
+  // cout<<"o"<<endl;
 
   // s_size non-separable part with rotation
   int c = 0;

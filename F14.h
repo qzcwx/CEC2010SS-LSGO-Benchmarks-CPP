@@ -4,13 +4,10 @@
 #include "Benchmarks.h"
 
 class F14:public Benchmarks{
-protected:
-	void generateInterArray ( );
-public:
-	F14();
-	double compute(double* x) ;
-	/* double compute(vector<double> x) ; */
-	~F14();
+ public:
+  F14();
+  double compute(double* x) ;
+  ~F14();
 };
 
 #endif

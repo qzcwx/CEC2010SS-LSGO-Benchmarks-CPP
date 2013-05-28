@@ -145,13 +145,17 @@ double* Benchmarks::readOvector()
       stringstream iss;
       while ( getline(file, line) )
         {
-                
           iss<<line;
           while (getline(iss, value, ','))
             {
               d[c++] = stod(value);
             }
           iss.clear();
+          // if (c==dimension)
+          //   {
+          //     break;
+          //   }
+          // printf("%d\n",c);
         }
       file.close();
     }
@@ -161,6 +165,52 @@ double* Benchmarks::readOvector()
     }
   return d;
 }
+
+double** Benchmarks::readOvectorVec()
+{
+  // read O vector from file in csv format, seperated by s_size groups
+  double** d = (double**) malloc(s_size*sizeof(double*));
+  stringstream ss;
+  ss<< "cdatafiles/" << "F" << ID << "-xopt.txt";
+  ifstream file (ss.str());
+  string value;
+  string line;
+  int c = 0;                      // index over 1 to dim
+  int i = -1;                      // index over 1 to s_size
+  int up = 0;                   // current upper bound for one group
+  
+  if (file.is_open())
+    {
+      stringstream iss;
+      while ( getline(file, line) )
+        {
+          if (c==up)             // out (start) of one group
+            {
+              // printf("=\n");
+              i++;
+              d[i] =  (double*) malloc(s[i]*sizeof(double));
+              up += s[i];
+            }
+          iss<<line;
+          while (getline(iss, value, ','))
+            {
+              // printf("c=%d\ts=%d\ti=%d\tup=%d\tindex=%d\n",c,s[i],i,up,c-(up-s[i]));
+              d[i][c-(up-s[i])] = stod(value);
+              // printf("1\n");
+              c++;
+            }
+          iss.clear();
+          // printf("2\n");
+        }
+      file.close();
+    }
+  else
+    {
+      cout<<"Cannot open datafiles"<<endl;
+    }
+  return d;  
+}
+
 
 void Benchmarks::transform_osz(double* z, int dim)
 {
@@ -218,7 +268,7 @@ int* Benchmarks::createPermVector(int dim){
 
 int* Benchmarks::readPermVector(){
   int* d;
-  
+
   d = new int[dimension];
 
   stringstream ss;
@@ -234,12 +284,12 @@ int* Benchmarks::readPermVector(){
           d[c++] = stod(value) - 1;
         }
     }
-  
+
   // for (int i = 0; i < dimension; ++i)
   //   {
   //     printf("%d\n", d[i]);
   //   }
-  
+
   return(d);
 }
 
@@ -363,17 +413,17 @@ double** Benchmarks::readR(int sub_dim)
     {
       m[i] = new double[sub_dim];
     }
-  
+
   stringstream ss;
   ss<< "cdatafiles/" << "F" << ID << "-R"<<sub_dim<<".txt";
   // cout<<ss.str()<<endl;
-  
+
   ifstream file (ss.str());
   string value;
   string line;
   int i=0;
   int j;
-  
+
   if (file.is_open())
     {
       stringstream iss;
@@ -403,7 +453,7 @@ double** Benchmarks::readR(int sub_dim)
 int* Benchmarks::readS(int num)
 {
   s = new int[num];
-  
+
   stringstream ss;
   ss<< "cdatafiles/" << "F" << ID << "-s.txt";
   ifstream file (ss.str());
@@ -423,7 +473,7 @@ int* Benchmarks::readS(int num)
 double* Benchmarks::readW(int num)
 {
   w = new double[num];
-  
+
   stringstream ss;
   ss<< "cdatafiles/" << "F" << ID << "-w.txt";
   ifstream file (ss.str());
@@ -453,7 +503,7 @@ double* Benchmarks::rotateVector(int i, int &c)
       z[j-c] = anotherz[Pvector[j]];
     }
   // cout<<"copy done"<<endl;
-  
+
   if (s[i]==25)
     {
       anotherz1 = multiply( z, r25, s[i]);
@@ -478,7 +528,7 @@ double* Benchmarks::rotateVector(int i, int &c)
 double* Benchmarks::rotateVectorConform(int i, int &c)
 {
   double* z = new double[s[i]];
-  printf("i=%d\tc=%d\tl=%d\tu=%d\n", i, c, c - (i)*overlap, c +s[i] - (i)*overlap);
+  // printf("i=%d\tc=%d\tl=%d\tu=%d\n", i, c, c - (i)*overlap, c +s[i] - (i)*overlap);
   
   // copy values into the new vector
   for (int j = c - i*overlap; j < c +s[i] - i*overlap; ++j)

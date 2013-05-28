@@ -76,6 +76,7 @@ class Benchmarks{
   int s_size;
   int overlap;
   double *Ovector;
+  double **OvectorVec;
   int*    Pvector;
   double* RotMatrix;
   double** MultiRotMatrix1D;
@@ -125,6 +126,7 @@ class Benchmarks{
         
   /* for CEC2013SS */
   double* readOvector();
+  double** readOvectorVec();
   int* readPermVector();
   double** readR(int sub_dim);
   int* readS(int num);
